@@ -1,1 +1,43 @@
 @import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: "Rubik", ui-sans-serif, system-ui, sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Fraunces", serif;
+  }
+}
+
+@layer components {
+  .first-heading {
+    @apply text-2xl md:text-4xl font-semibold text-primary-light drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)];
+  }
+  .second-heading {
+    @apply text-3xl md:text-5xl font-medium text-accent/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)];
+  }
+}
+
+@theme {
+  /* 🌸 Brand hierarchy: lavender = primary, pink = accent */
+
+  /* primary (lavender / lilac) → use for logo, buttons, main highlights */
+  --color-primary: #a78bfa; /* violet-400 */
+  --color-primary-light: #c4b5fd; /* violet-300 */
+  --color-primary-dark: #7c3aed; /* violet-600 */
+
+  /* neutral (light gray) → use for text + backgrounds */
+  --color-neutral: #f1f5f9; /* slate-100 */
+  --color-neutral-light: #fafafa; /* zinc-50 */
+  --color-neutral-dark: #475569; /* slate-600 */
+
+  /* accent (blush pink) → use sparingly: headings, hover, underline */
+  --color-accent: #f9a8d4; /* pink-300 */
+  --color-accent-light: #fecdd3; /* rose-200 */
+  --color-accent-dark: #fb7185; /* rose-400 */
+}
