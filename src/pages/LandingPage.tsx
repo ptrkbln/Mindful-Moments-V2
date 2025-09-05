@@ -144,7 +144,7 @@ export default function Landing() {
         initial="hidden"
         animate="visible"
       >
-        <h1 className="font-bold drop-shadow-[0_2px_2px_rgba(0,0,0,0.6)]">
+        <h1 className="drop-shadow-[0_2px_2px_rgba(0,0,0,0.6)]">
           <span className="text-4xl sm:text-6xl  font-bold text-primary">
             Mindful
           </span>

@@ -1,6 +1,5 @@
 import { FaInstagram, FaFacebook, FaWhatsapp } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import type { JSX } from "react";
 import type { IconType } from "react-icons";
 
 const footerLinks = ["About", "Privacy Policy", "Contact"];
@@ -28,7 +27,7 @@ const renderFooterLinks = (arr: string[]) => {
     );
   });
 };
-// FINISH FUNCTION
+
 const renderFooterMedia = (arr: FooterMedia[]) => {
   if (arr.length < 1) return;
   return arr.map((el, j) => {
@@ -50,8 +49,8 @@ const renderFooterMedia = (arr: FooterMedia[]) => {
 
 export default function Footer() {
   return (
-    <footer className="p-1 w-full block">
-      <div className="w-full p2 flex items-center justify-between mt-3">
+    <footer className="w-full max-w-screen-2xl mx-auto block text-neutral-dark">
+      <div className="w-full flex items-center justify-between mt-3">
         <ul className="flex text-sm gap-3">{renderFooterLinks(footerLinks)}</ul>
         <span className="flex gap-3 text-sm items-center">
           {signature}
