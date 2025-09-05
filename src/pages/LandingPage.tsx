@@ -173,7 +173,7 @@ export default function Landing() {
         className="absolute bottom-16 w-full text-center z-30"
       >
         <Link
-          to="/home"
+          to="/app"
           className="inline-flex items-center justify-center rounded-full
              px-6 md:px-7 py-3 text-base md:text-lg font-medium
              bg-neutral-dark/20 backdrop-blur-md
