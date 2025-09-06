@@ -15,9 +15,9 @@ type NavElement = {
   to: string;
 };
 const navElements: NavElement[] = [
-  { label: "Practice", icon: FaPencil, to: "/app/practice" },
-  { label: "Journal", icon: FaBookOpen, to: "/app/journal" },
-  { label: "Profile", icon: FaUser, to: "/app/profile" },
+  { label: "Daily Practice", icon: FaPencil, to: "/app/practice" },
+  { label: "Gratitude Journal", icon: FaBookOpen, to: "/app/journal" },
+  { label: "My Profile", icon: FaUser, to: "/app/profile" },
   { label: "Home", icon: FaHouseUser, to: "/app" },
 ];
 
