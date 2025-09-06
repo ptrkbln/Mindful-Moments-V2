@@ -25,7 +25,11 @@ const typeItHeaders: readonly [string, string, string, string] = [
   "Begin.",
 ];
 
-type Instruction = { label: string[]; icon: IconType; tooltip: string };
+type Instruction = {
+  label: readonly [string, string];
+  icon: IconType;
+  tooltip: string;
+};
 
 const instructions: Instruction[] = [
   {
@@ -50,7 +54,7 @@ const instructions: Instruction[] = [
   },
 ];
 
-const renderInstructions = (arr: Instruction[]) => {
+const renderInstructions = (arr: readonly Instruction[]) => {
   if (arr.length < 1) return;
   return arr.map((instrObj, i) => {
     const Icon = instrObj.icon;
