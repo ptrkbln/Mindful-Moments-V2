@@ -1,30 +1,21 @@
-import { TOPICS, type Topic } from "../data/gratitudeQuestions";
+import { TOPICS, type Topic } from "../data/topics";
 import { SOUNDTRACK_LABELS, type Soundtrack } from "../data/soundtracks";
 import { type Dispatch, type JSX, type SetStateAction } from "react";
 import Carousel from "../components/Carousel";
 import SoundtrackPreview from "./SoundtrackPreview";
+import { TIMERS } from "../data/timer";
+import type { Timer } from "../data/timer";
 
 type SceneSettingProps = {
-  topic: Topic;
-  setTopic: Dispatch<SetStateAction<Topic>>;
-  soundtrack: Soundtrack;
-  setSoundtrack: Dispatch<SetStateAction<Soundtrack>>;
-  timer: number;
-  setTimer: Dispatch<SetStateAction<string>>;
+  setTopic: Dispatch<SetStateAction<Topic | null>>;
+  setSoundtrack: Dispatch<SetStateAction<Soundtrack | null>>;
+  setTimer: Dispatch<SetStateAction<Timer | null>>;
   setIsSetupComplete: Dispatch<SetStateAction<boolean>>;
 };
 
-const timerOptions = ["60", "90", "120", "150"];
-
-/* const instructions = ["Choose a topic", "Select backgroud music", "Set timer"];
-const options = [TOPICS, SOUNDTRACK_LABELS, ] */
-
 export default function SceneSetting({
-  topic,
   setTopic,
-  soundtrack,
   setSoundtrack,
-  timer,
   setTimer,
   setIsSetupComplete,
 }: SceneSettingProps): JSX.Element {
@@ -51,7 +42,7 @@ export default function SceneSetting({
           />
           <Carousel
             header="Set timer"
-            options={timerOptions}
+            options={TIMERS}
             setterFunction={setTimer}
           />
           <button

@@ -7,7 +7,7 @@ export const SOUNDTRACKS = {
   "Angelic Meditation": angelicMeditation,
   "Beach Waves": beachWaves,
   "Evening Improvisation": eveningImprovisation,
-  "Rain Sounds and Rainforest": rainForest,
+  "Rain sounds": rainForest,
 } as const;
 
 export type Soundtrack = keyof typeof SOUNDTRACKS;
