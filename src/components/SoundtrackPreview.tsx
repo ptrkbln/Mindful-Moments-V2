@@ -24,44 +24,43 @@ export default function SoundtrackPreview({
       timeoutsRef.current.forEach(clearTimeout);
       timeoutsRef.current = [];
       stop();
+      setIsPlaying(false);
     };
   }, [stop]);
+
+  const handlePlayMusic = () => {
+    setIsPlaying(true);
+    play();
+    sound?.once("play", (id: number) => {
+      sound.volume(0, id);
+      sound.fade(0, 1, FADE_DURATION_MS, id); // fade in
+      const t1 = setTimeout(
+        () => sound.fade(1, 0, FADE_DURATION_MS, id),
+        FADE_OUT_START_MS
+      ); //fade out
+      const t2 = setTimeout(() => {
+        stop();
+        setIsPlaying(false);
+      }, PREVIEW_END_MS); // stop
+      timeoutsRef.current.push(t1, t2);
+    });
+  };
+
+  const handleStopMusic = () => {
+    setIsPlaying(false);
+    timeoutsRef.current.forEach(clearTimeout);
+    timeoutsRef.current = [];
+    stop();
+  };
 
   return (
     <>
       {!isPlaying ? (
-        <button
-          type="button"
-          onClick={() => {
-            setIsPlaying(true);
-            play();
-            sound?.once("play", (id: number) => {
-              sound.volume(0, id);
-              sound.fade(0, 1, FADE_DURATION_MS, id); // fade in
-              const t1 = setTimeout(
-                () => sound.fade(1, 0, FADE_DURATION_MS, id),
-                FADE_OUT_START_MS
-              ); //fade out
-              const t2 = setTimeout(() => {
-                stop();
-                setIsPlaying(false);
-              }, PREVIEW_END_MS); // stop
-              timeoutsRef.current.push(t1, t2);
-            });
-          }}
-        >
+        <button type="button" onClick={handlePlayMusic}>
           <FaPlay />
         </button>
       ) : (
-        <button
-          type="button"
-          onClick={() => {
-            setIsPlaying(false);
-            timeoutsRef.current.forEach(clearTimeout);
-            timeoutsRef.current = [];
-            stop();
-          }}
-        >
+        <button type="button" onClick={handleStopMusic}>
           <FaStop />
         </button>
       )}
