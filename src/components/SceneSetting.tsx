@@ -5,55 +5,83 @@ import Carousel from "../components/Carousel";
 import SoundtrackPreview from "./SoundtrackPreview";
 import { TIMERS } from "../data/timer";
 import type { Timer } from "../data/timer";
+import { AnimatePresence, motion } from "framer-motion";
 
 type SceneSettingProps = {
+  topic: Topic | null;
   setTopic: Dispatch<SetStateAction<Topic | null>>;
+  soundtrack: Soundtrack | null;
   setSoundtrack: Dispatch<SetStateAction<Soundtrack | null>>;
+  timer: Timer | null;
   setTimer: Dispatch<SetStateAction<Timer | null>>;
   setIsSetupComplete: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function SceneSetting({
+  topic,
   setTopic,
+  soundtrack,
   setSoundtrack,
   setTimer,
+  timer,
   setIsSetupComplete,
 }: SceneSettingProps): JSX.Element {
+  function ExitLeft({ children }: { children: React.ReactNode }) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.97 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.97 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      >
+        {children}
+      </motion.div>
+    );
+  }
   return (
     <>
-      <h2>Set the Scene</h2>
-      <form
-        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-          e.preventDefault();
-          /* handleSubmit(); */
-        }}
-      >
-        <div className="grid grid-cols-1 gap-5 text-center border border-primary w-xsm borde sm:w-sm">
-          <Carousel
-            header="Choose a topic"
-            options={TOPICS}
-            setterFunction={setTopic}
-          />
-          <Carousel
-            header="Select soundtrack"
-            options={SOUNDTRACK_LABELS}
-            SoundtrackPreview={SoundtrackPreview}
-            setterFunction={setSoundtrack}
-          />
-          <Carousel
-            header="Set timer"
-            options={TIMERS}
-            setterFunction={setTimer}
-          />
-          <button
-            className="bg-accent"
-            type="button"
-            onClick={() => setIsSetupComplete(true)}
-          >
-            START
-          </button>
-        </div>
-      </form>
+      <div className="relative min-h-24">
+        <AnimatePresence mode="wait">
+          {topic === null && (
+            <ExitLeft key="topic">
+              <Carousel
+                header="Choose a topic"
+                options={TOPICS}
+                setterFunction={setTopic}
+              />
+            </ExitLeft>
+          )}
+
+          {topic && soundtrack === null && (
+            <ExitLeft key="soundtrack">
+              <Carousel
+                header="Select soundtrack"
+                options={SOUNDTRACK_LABELS}
+                SoundtrackPreview={SoundtrackPreview}
+                setterFunction={setSoundtrack}
+              />
+            </ExitLeft>
+          )}
+
+          {topic && soundtrack && timer === null && (
+            <ExitLeft key="timer">
+              <Carousel
+                header="Set timer"
+                options={TIMERS}
+                setterFunction={setTimer}
+              />
+            </ExitLeft>
+          )}
+        </AnimatePresence>
+
+        {/*         <button
+          className="bg-accent"
+          type="button"
+          onClick={() => setIsSetupComplete(true)}
+        >
+          START
+        </button> */}
+      </div>
     </>
   );
 }

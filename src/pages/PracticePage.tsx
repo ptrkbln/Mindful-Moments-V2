@@ -14,8 +14,11 @@ export default function PracticePage() {
     <>
       {!isSetupComplete && (
         <SceneSetting
+          topic={topic}
           setTopic={setTopic}
+          soundtrack={soundtrack}
           setSoundtrack={setSoundtrack}
+          timer={timer}
           setTimer={setTimer}
           setIsSetupComplete={setIsSetupComplete}
         />

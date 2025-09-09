@@ -1,7 +1,7 @@
 import useSound from "use-sound";
 import { FaPlay, FaStop } from "react-icons/fa";
 import { SOUNDTRACKS, type Soundtrack } from "../data/soundtracks";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 const FADE_DURATION_MS = 5000; // start fade-in 5s after start and start fade-out 5s before end
 const PREVIEW_END_MS = 20000; // completely stop after 20s
@@ -18,15 +18,6 @@ export default function SoundtrackPreview({
     html5: true,
     interrupt: true,
   });
-
-  useEffect(() => {
-    return () => {
-      timeoutsRef.current.forEach(clearTimeout);
-      timeoutsRef.current = [];
-      stop();
-      setIsPlaying(false);
-    };
-  }, [stop]);
 
   const handlePlayMusic = () => {
     setIsPlaying(true);
@@ -46,12 +37,19 @@ export default function SoundtrackPreview({
     });
   };
 
-  const handleStopMusic = () => {
+  const handleStopMusic = useCallback(() => {
     setIsPlaying(false);
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
     stop();
-  };
+  }, [stop]);
+
+  // useCallback to make sure the cleanup uses the newly recreated function at rerenders instead of referencing the old one
+  useEffect(() => {
+    return () => {
+      handleStopMusic();
+    };
+  }, [stop, handleStopMusic]);
 
   return (
     <>
