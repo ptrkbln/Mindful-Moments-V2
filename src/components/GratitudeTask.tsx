@@ -15,7 +15,12 @@ export default function GratitudeTask({
   topic,
   soundtrack,
   timer,
-  setTimer,
 }: GratitudeTaskProps) {
-  return <TimerDisplay timer={timer} setTimer={setTimer} />;
+  return (
+    <>
+      {soundtrack !== null && timer !== null && (
+        <TimerDisplay timer={timer} soundtrack={soundtrack} />
+      )}
+    </>
+  );
 }
