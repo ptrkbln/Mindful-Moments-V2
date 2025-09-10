@@ -16,6 +16,7 @@ export default function TimerDisplay({
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
   const ss = String(seconds).padStart(2, "0");
+
   const { play, stop } = useSoundtrack(timer, soundtrack);
 
   function startTimer() {
