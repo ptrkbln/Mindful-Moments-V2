@@ -73,14 +73,6 @@ export default function SceneSetting({
             </ExitLeft>
           )}
         </AnimatePresence>
-
-        {/*         <button
-          className="bg-accent"
-          type="button"
-          onClick={() => setIsSetupComplete(true)}
-        >
-          START
-        </button> */}
       </div>
     </>
   );
