@@ -14,7 +14,6 @@ type SceneSettingProps = {
   setSoundtrack: Dispatch<SetStateAction<Soundtrack | null>>;
   timer: Timer | null;
   setTimer: Dispatch<SetStateAction<Timer | null>>;
-  setIsSetupComplete: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function SceneSetting({
@@ -24,7 +23,6 @@ export default function SceneSetting({
   setSoundtrack,
   setTimer,
   timer,
-  setIsSetupComplete,
 }: SceneSettingProps): JSX.Element {
   function ExitLeft({ children }: { children: React.ReactNode }) {
     return (

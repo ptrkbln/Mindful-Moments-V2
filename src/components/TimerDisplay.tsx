@@ -3,13 +3,17 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import { useSoundtrack } from "../hooks/useSoundtrack";
 import type { Soundtrack } from "../data/soundtracks";
 
+type TimerDisplayProps = {
+  timer: Timer;
+  soundtrack: Soundtrack;
+  onComplete: () => void;
+};
+
 export default function TimerDisplay({
   timer,
   soundtrack,
-}: {
-  timer: Timer;
-  soundtrack: Soundtrack;
-}) {
+  onComplete,
+}: TimerDisplayProps) {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [timeLeft, setTimeLeft] = useState<number>(timer);
   // convert timer to mins and secs
@@ -38,11 +42,12 @@ export default function TimerDisplay({
     }
     stop();
     setTimeLeft(0);
-  }, [stop]);
+    onComplete();
+  }, [stop, onComplete]);
 
   // maybe needed if parent later changes timer -> reflect in setTimeLeft
   useEffect(() => {
-    setTimeLeft(timer || 0);
+    setTimeLeft(timer);
   }, [timer]);
 
   // cleanup function on unmount

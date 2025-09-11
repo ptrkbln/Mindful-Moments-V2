@@ -1,6 +1,6 @@
 import type { Topic } from "./topics";
 
-type DailyTask = {
+export type DailyTask = {
   id: string;
   topic: Topic;
   task: string;

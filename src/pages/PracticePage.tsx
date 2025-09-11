@@ -9,21 +9,11 @@ export default function PracticePage() {
   const [soundtrack, setSoundtrack] = useState<Soundtrack | null>(null);
   const [timer, setTimer] = useState<Timer | null>(null);
   const [topic, setTopic] = useState<Topic | null>(null);
-  const [isSetupComplete, setIsSetupComplete] = useState(false);
-
-  useEffect(() => {
-    setIsSetupComplete(!!(topic && soundtrack && timer));
-  }, [topic, soundtrack, timer]);
 
   return (
     <>
-      {isSetupComplete ? (
-        <GratitudeTask
-          topic={topic}
-          soundtrack={soundtrack}
-          timer={timer}
-          setTimer={setTimer}
-        />
+      {topic && soundtrack && timer ? (
+        <GratitudeTask topic={topic} soundtrack={soundtrack} timer={timer} />
       ) : (
         <SceneSetting
           topic={topic}
@@ -32,7 +22,6 @@ export default function PracticePage() {
           setSoundtrack={setSoundtrack}
           timer={timer}
           setTimer={setTimer}
-          setIsSetupComplete={setIsSetupComplete}
         />
       )}
     </>
