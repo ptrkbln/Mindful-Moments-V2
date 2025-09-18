@@ -5,6 +5,7 @@ export type DailyTask = {
   topic: Topic;
   task: string;
   followUps: string[];
+  completed: boolean;
 };
 
 export const gratitudeQuestions: DailyTask[] = [
@@ -18,6 +19,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How does it support your well-being?",
       "How can you lean on it tomorrow?",
     ],
+    completed: false,
   },
   {
     id: "self-2",
@@ -28,6 +30,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How did it affect your mood?",
       "How can you create more of it?",
     ],
+    completed: false,
   },
   {
     id: "self-3",
@@ -38,6 +41,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How did you grow from it?",
       "How will you face future challenges differently?",
     ],
+    completed: false,
   },
   {
     id: "self-4",
@@ -48,6 +52,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How did it make you feel?",
       "How can you notice more of these moments?",
     ],
+    completed: false,
   },
 
   // Others
@@ -60,6 +65,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How did it affect you?",
       "How could you thank them?",
     ],
+    completed: false,
   },
   {
     id: "others-2",
@@ -70,6 +76,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How did it make you feel?",
       "How can you pass kindness forward?",
     ],
+    completed: false,
   },
   {
     id: "others-3",
@@ -80,6 +87,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How does it enrich your life?",
       "How can you nurture it?",
     ],
+    completed: false,
   },
   {
     id: "others-4",
@@ -90,6 +98,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How did it strengthen your bond?",
       "How can you create more moments like it?",
     ],
+    completed: false,
   },
 
   // Nature
@@ -102,6 +111,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How did it affect your mood?",
       "How can you spend more time outside?",
     ],
+    completed: false,
   },
   {
     id: "nature-2",
@@ -112,6 +122,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "What feelings does it spark?",
       "How can you enjoy it more often?",
     ],
+    completed: false,
   },
   {
     id: "nature-3",
@@ -122,6 +133,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "What memories do you cherish?",
       "How can you show it care?",
     ],
+    completed: false,
   },
   {
     id: "nature-4",
@@ -132,6 +144,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How did it change your mood?",
       "How can you notice these small shifts more often?",
     ],
+    completed: false,
   },
 
   // Home
@@ -144,6 +157,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How do they add comfort?",
       "How can you appreciate them more?",
     ],
+    completed: false,
   },
   {
     id: "home-2",
@@ -154,6 +168,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How did it affect your mood?",
       "How can you create more of these?",
     ],
+    completed: false,
   },
   {
     id: "home-3",
@@ -164,6 +179,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "Why do you value it?",
       "How could you improve it?",
     ],
+    completed: false,
   },
   {
     id: "home-4",
@@ -174,6 +190,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "What memories are tied to it?",
       "How can you honor its value?",
     ],
+    completed: false,
   },
 
   // Skills
@@ -186,6 +203,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "Why does it matter to you?",
       "How can you keep improving it?",
     ],
+    completed: false,
   },
   {
     id: "skills-2",
@@ -196,6 +214,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How did it change you?",
       "What's the next goal?",
     ],
+    completed: false,
   },
   {
     id: "skills-3",
@@ -206,6 +225,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How has it benefited you?",
       "What do you want to learn next?",
     ],
+    completed: false,
   },
   {
     id: "skills-4",
@@ -216,6 +236,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How did the process feel?",
       "How can you bring more creativity into daily life?",
     ],
+    completed: false,
   },
 
   // Experiences
@@ -228,6 +249,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How did it affect you?",
       "What lasting impact did it have?",
     ],
+    completed: false,
   },
   {
     id: "exp-2",
@@ -238,6 +260,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "How did it change your outlook?",
       "What memory stays with you most?",
     ],
+    completed: false,
   },
   {
     id: "exp-3",
@@ -248,6 +271,7 @@ export const gratitudeQuestions: DailyTask[] = [
       "Why did it matter?",
       "How did it affect your day?",
     ],
+    completed: false,
   },
   {
     id: "exp-4",
@@ -258,5 +282,6 @@ export const gratitudeQuestions: DailyTask[] = [
       "How did it shape your thinking?",
       "How can you keep that inspiration alive?",
     ],
+    completed: false,
   },
 ];
