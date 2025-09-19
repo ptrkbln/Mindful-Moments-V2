@@ -16,7 +16,7 @@ type GratitudeTaskProps = {
 
 // tailwind styling classes used by form elements
 const textAreaStyle =
-  "w-[300px] sm:w-[600px] text-[#222] font-['Playpen_Sans',cursive] font-extralight text-[18px] sm:text-[24px] resize-none leading-[40px] pl-[100px] sm:pr-1 pt-[7px] pb-[34px] rounded-[12px] shadow-[0px_2px_14px_#000] border-y border-white m-8 [background-image:url('../../public/lines_text_area.png'),url('../../public/paper_text_area.png')] [background-repeat:repeat-y,repeat]";
+  "w-[300px] sm:w-[600px] text-[#222] font-['Playpen_Sans',cursive] font-extralight text-[18px] sm:text-[24px] resize-none leading-[40px] pl-[100px] sm:pr-1 pt-[7px] pb-[34px] rounded-[12px] shadow-[0px_2px_14px_#000] border-y border-white m-8 [background-image:url('../assets/lines_text_area.png'),url('../assets/paper_text_area.png')] [background-repeat:repeat-y,repeat]";
 const colorInputStyle =
   "h-20 w-20 cursor-pointer rounded-full p-0 border-2 border-black  overflow-hidden appearance-none [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:border-none [&::-webkit-color-swatch]:rounded-full [&::-moz-color-swatch]:border-0 [&::-moz-color-swatch]:border-radius-full";
 

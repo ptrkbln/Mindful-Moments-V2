@@ -7,6 +7,9 @@ import { TIMERS, type Timer } from "../data/timer";
 import { AnimatePresence } from "framer-motion";
 import AnimateFadeInOut from "./AnimateFadeInOut";
 import { getAvailableTopics } from "../utils/gratitudeUtils";
+import bgTopic from "../assets/images/bg_topic2.jpg";
+import bgSoundtrack from "../assets/images/bg_soundtrack.jpg";
+import bgTimer from "../assets/images/bg_timer.jpg";
 
 type SceneSettingProps = {
   topic: Topic | null;
@@ -36,9 +39,10 @@ export default function SceneSetting({
           {topic === null && (
             <AnimateFadeInOut key="topic">
               <Carousel
-                header="Choose a topic"
+                header="Today I'll reflect on"
                 options={availableTopics}
                 setterFunction={setTopic}
+                bgImage={bgTopic}
               />
             </AnimateFadeInOut>
           )}
@@ -46,10 +50,11 @@ export default function SceneSetting({
           {topic && soundtrack === null && (
             <AnimateFadeInOut key="soundtrack">
               <Carousel
-                header="Select soundtrack"
+                header="I'll be guided by"
                 options={SOUNDTRACK_LABELS}
                 SoundtrackPreview={SoundtrackPreview}
                 setterFunction={setSoundtrack}
+                bgImage={bgSoundtrack}
               />
             </AnimateFadeInOut>
           )}
@@ -57,9 +62,10 @@ export default function SceneSetting({
           {topic && soundtrack && timer === null && (
             <AnimateFadeInOut key="timer">
               <Carousel
-                header="Set timer"
+                header="I'll reflect for ... seconds"
                 options={TIMERS}
                 setterFunction={setTimer}
+                bgImage={bgTimer}
               />
             </AnimateFadeInOut>
           )}
