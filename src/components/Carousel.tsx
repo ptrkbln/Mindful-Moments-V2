@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 type CarouselProps<T extends string | number> = {
   header: string;
@@ -18,21 +19,19 @@ export default function Carousel<T extends string | number>({
 }: CarouselProps<T>) {
   const [i, setI] = useState(0);
 
+  // options come as arrays (of topics, of soundtrack, of timers)
+  // Safety net to not break if no options available; handled already by grandparent PracticePage
   if (!options.length) {
-    return (
-      <div className="mx-auto min-w-64 min-h-24 relative grid place-items-center bg-neutral-300 rounded-4xl">
-        <h2>{header}</h2>
-        <p>No more options available.</p>
-      </div>
-    );
+    return <div>No options available.</div>;
   }
-
+  // navigate through options counter
   const prev = () => setI((n) => (n - 1 + options.length) % options.length);
   const next = () => setI((n) => (n + 1) % options.length);
-
+  //currently selected option
   const currentValue = options[i];
 
   return (
+    /* card (container) */
     <div
       className="group relative mx-auto
         w-[clamp(300px,84vw,500px)] h-[clamp(300px,84vw,500px)]
@@ -42,6 +41,7 @@ export default function Carousel<T extends string | number>({
         backgroundImage: `url(${bgImage})`,
       }}
     >
+      {/* slide-up panel, revealed on hover */}
       <div
         className="absolute inset-x-0 bottom-0
          h-[185px] sm:h-[195px]
@@ -50,15 +50,16 @@ export default function Carousel<T extends string | number>({
          transition-transform duration-500 ease-out
          group-hover:translate-y-0"
       >
+        {/* header: eg. Today I'll focus on */}
         <div className="flex items-center justify-center px-6 py-4">
           <h2 className="text-[clamp(20px,4vw,24px)] font-extralight text-neutral-700 tracking-wide font-['Playpen_Sans',cursive]">
             {header}
           </h2>
         </div>
-
+        {/* options: current value + preview if soundtrack + counter */}
         <div className="px-6 py-3 space-y-4 text-neutral-800">
           <div className="flex items-center gap-2 min-h-10">
-            <div className="min-w-0 flex-1 text-[clamp(16px,3.5vw,20px)] font-semibold pl-1 truncate">
+            <div className="min-w-0 flex-1 text-[clamp(16px,3.5vw,20px)] font-bold pl-1 truncate">
               {currentValue}
             </div>
             <div className="w-8 h-8 pr-[clamp(0px,19vw,160px)] grid place-items-center">
@@ -70,21 +71,21 @@ export default function Carousel<T extends string | number>({
               {i + 1}/{options.length}
             </span>
           </div>
-
+          {/* controls: prev/next arrow-buttons + confirm */}
           <div className="pt-2 flex gap-2">
             <button
               onClick={prev}
               className="w-8 h-8 flex items-center justify-center rounded-full bg-neutral-900/40 text-white hover:bg-neutral-900/60"
               aria-label="previous"
             >
-              ‹
+              <FaAngleLeft />
             </button>
             <button
               onClick={next}
               className="w-8 h-8 flex items-center justify-center rounded-full bg-neutral-900/40 text-white hover:bg-neutral-900/60"
               aria-label="next"
             >
-              ›
+              <FaAngleRight />
             </button>
             <button
               onClick={() => setterFunction(currentValue)}

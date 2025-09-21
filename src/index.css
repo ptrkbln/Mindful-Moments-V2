@@ -2,7 +2,8 @@
 
 @layer base {
   body {
-    font-family: "Rubik", ui-sans-serif, system-ui, sans-serif;
+    font-family: "Quicksand", ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
   }
   h1,
   h2,
@@ -11,6 +12,9 @@
   h5,
   h6 {
     font-family: "Fraunces", serif;
+  }
+  button {
+    @apply cursor-pointer;
   }
 }
 
