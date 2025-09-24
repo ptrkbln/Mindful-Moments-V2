@@ -64,7 +64,7 @@ export default function Carousel<T extends string | number>({
         className="absolute inset-x-0 bottom-0
          h-[185px] sm:h-[50%]
          backdrop-blur-md 
-         [background:linear-gradient(180deg,rgba(240,235,255,0.65)_0%,rgba(250,248,255,0.55)_50%,rgba(226,239,243,0.45)_100%)]
+         [background:linear-gradient(180deg,rgba(240,235,255,0.55)_0%,rgba(250,248,255,0.45)_50%,rgba(226,239,243,0.35)_100%)]
          translate-y-[calc(100%-65px)]
          transition-transform duration-400 
          group-hover:translate-y-0"
