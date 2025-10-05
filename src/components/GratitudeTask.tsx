@@ -3,10 +3,10 @@ import type { Topic } from "../data/topics";
 import type { Timer } from "../data/timer";
 import TimerDisplay from "./TimerDisplay";
 import { useState, useMemo } from "react";
-import { type DailyTask } from "../data/gratitudeQuestions";
 import { AnimatePresence } from "framer-motion";
 import AnimateFadeInOut from "./AnimateFadeInOut";
 import { gratitudeQuestions } from "../data/gratitudeQuestions";
+import GratitudeInstructions from "./GratitudeInstructions";
 
 type GratitudeTaskProps = {
   topic: Topic;
@@ -26,7 +26,6 @@ export default function GratitudeTask({
   timer,
 }: GratitudeTaskProps) {
   const [isTimerDone, setIsTimerDone] = useState(false);
-  const [showMoreToggle, setShowMoreToggle] = useState(false);
   const [input, setInput] = useState("");
   const [color, setColor] = useState("#000000");
   const [isInputDone, setIsInputDone] = useState(false);
@@ -59,50 +58,6 @@ export default function GratitudeTask({
     );
   }
 
-  // nested component: show the task instructions + toggleable followup questions
-  function Instructions({ taskObj }: { taskObj: DailyTask }) {
-    const renderFollowUps = (taskObj: DailyTask) => {
-      return taskObj.followUps.map((followUp, i) => {
-        return (
-          <p
-            key={i}
-            className="font-light text-neutral-dark text-[clamp(14px,4vw,18px)] 
-                      text-center tracking-wide font-['Playpen_Sans',cursive] py-[2px]"
-          >
-            {followUp}
-          </p>
-        );
-      });
-    };
-    return (
-      <div className="flex flex-col items-center">
-        <span className="text-[clamp(14px,4vw,16px)] py-2 font-light">
-          GRATITUDE FOR {taskObj.topic.toUpperCase()}
-        </span>
-        <span
-          className="font-extralight text-neutral-dark text-[clamp(18px,4vw,22px)] 
-                         tracking-wide font-['Playpen_Sans',cursive] text-center"
-        >
-          {taskObj?.task}
-        </span>
-        <button
-          onClick={() => setShowMoreToggle((value) => !value)}
-          className="h-10 px-3 text-xs flex items-center justify-center rounded-full
-          bg-violet-100/80
-          ring-1 ring-violet-200/70
-          border border-violet-200/40
-          text-neutral-dark
-          shadow-[0_2px_10px_-2px_rgba(167,139,250,.15)]
-          hover:bg-violet-200/60 hover:text-violet-600 active:translate-y-[1px] 
-          transition-all duration-200 my-3"
-        >
-          {showMoreToggle ? "Show less" : "Show more"}
-        </button>
-        {showMoreToggle && renderFollowUps(taskObj)}
-      </div>
-    );
-  }
-
   /* 
   Display a single gratitude exercise for a chosen topic:
   - first instructions with timer
@@ -119,53 +74,65 @@ export default function GratitudeTask({
         {/* intro block: AnimatePresence handles mount/unmount fade between gratitude task steps */}
         <AnimateFadeInOut key="intro">
           {soundtrack && timer && !isTimerDone && (
-            <>
-              <Instructions taskObj={todaysTask} />
+            <div className="flex flex-col justify-around w-full h-full">
+              <GratitudeInstructions taskObj={todaysTask} />
               <TimerDisplay
                 timer={timer}
                 soundtrack={soundtrack}
                 onComplete={() => setIsTimerDone(true)}
               />
-            </>
+            </div>
           )}
         </AnimateFadeInOut>
 
         {/* form block: wrapper + inner AnimatePresence to animate each step (text input -> color input) */}
         {isTimerDone && (
-          <AnimateFadeInOut key="form">
-            <form>
-              {!isInputDone ? (
-                <AnimateFadeInOut key="text-step">
-                  <div className="flex flex-col items-center">
-                    <Instructions taskObj={todaysTask} />
-                    <textarea
-                      className={textAreaStyle}
-                      value={input}
-                      required
-                      onChange={(e) => setInput(e.currentTarget.value)}
-                    />
-                    <button type="button" onClick={() => setIsInputDone(true)}>
-                      Save and continue
-                    </button>
-                  </div>
-                </AnimateFadeInOut>
-              ) : (
-                <AnimateFadeInOut key="color-step">
-                  <div className="flex flex-col items-center">
-                    <label>Which color resonates with you today?</label>
-                    <input
-                      type="color"
-                      className={colorInputStyle}
-                      value={color}
-                      required
-                      onChange={(e) => setColor(e.currentTarget.value)}
-                    />
-                    <button>Submit Today's Thoughts</button>
-                  </div>
-                </AnimateFadeInOut>
-              )}
-            </form>
-          </AnimateFadeInOut>
+          <div className="w-full h-full">
+            <AnimateFadeInOut key="form">
+              <form className="w-full h-full">
+                <AnimatePresence mode="wait" initial={false}>
+                  {!isInputDone ? (
+                    <AnimateFadeInOut key="text-step">
+                      <div className="w-full h-full min-h-0 flex flex-col justify-between items-center">
+                        <GratitudeInstructions taskObj={todaysTask} />
+                        <div className="w-full flex flex-col items-center">
+                          <textarea
+                            className={textAreaStyle}
+                            value={input}
+                            required
+                            onChange={(e) => setInput(e.currentTarget.value)}
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setIsInputDone(true)}
+                        >
+                          Save and continue
+                        </button>
+                      </div>
+                    </AnimateFadeInOut>
+                  ) : (
+                    <AnimateFadeInOut key="color-step">
+                      <div className="w-full h-full min-h-0 flex flex-col justify-between items-center">
+                        <label>Which color resonates with you today?</label>
+                        <div className="flex items-center justify-center">
+                          <input
+                            type="color"
+                            className={colorInputStyle}
+                            value={color}
+                            required
+                            onChange={(e) => setColor(e.currentTarget.value)}
+                          />
+                        </div>
+
+                        <button>Submit Today's Thoughts</button>
+                      </div>
+                    </AnimateFadeInOut>
+                  )}
+                </AnimatePresence>
+              </form>
+            </AnimateFadeInOut>
+          </div>
         )}
       </AnimatePresence>
     </div>
