@@ -7,7 +7,7 @@ import gradient from "../assets/backgrounds/sea_gradient.webp";
 export default function Layout() {
   return (
     <div
-      className="px-5 py-3 pt-6 min-h-[100svh] w-full flex flex-col bg-cover bg-center"
+      className="px-1 py-3 pt-6 min-h-[100svh] flex flex-col bg-cover bg-center overflow-x-hidden"
       style={{
         backgroundImage: `
         linear-gradient(to top, rgba(255,255,255,0.25), transparent 40%),

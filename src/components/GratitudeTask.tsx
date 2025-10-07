@@ -8,17 +8,26 @@ import AnimateFadeInOut from "./AnimateFadeInOut";
 import { gratitudeQuestions } from "../data/gratitudeQuestions";
 import GratitudeInstructions from "./GratitudeInstructions";
 
+const COLOR_INPUT_PROMPTS = [
+  "Which color resonates with you today?",
+  "What shade matches your mood right now?",
+  "Pick the hue that feels most like today.",
+  "Which color best holds your feelings?",
+  "Point to the color that fits this moment.",
+  "If today were a color, what would it be?",
+  "What color are you drawn to in this moment?",
+  "Let a color choose you—what is it?",
+] as const;
+
+function getRandomArrayItem<T>(arr: readonly T[]): T | null {
+  return arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
+}
+
 type GratitudeTaskProps = {
   topic: Topic;
   soundtrack: Soundtrack;
   timer: Timer;
 };
-
-// tailwind styling classes used by form elements
-const textAreaStyle =
-  "w-[clamp(290px,50vw,600px)] h-[clamp(200px,50vw,240px)]  text-[#222] font-['Playpen_Sans',cursive] font-extralight text-[18px] sm:text-[24px] resize-none leading-[40px] pl-[100px] sm:pr-1 pt-[7px] pb-[34px] rounded-[12px] shadow-[0px_2px_14px_#000] border-y border-white m-8 [background-image:url('./assets/images/lines_text_area.png'),url('./assets/backgrounds/wrinkled_paper.webp')] [background-repeat:repeat-y,repeat]";
-const colorInputStyle =
-  "h-20 w-20 cursor-pointer rounded-full p-0 border-2 border-black  overflow-hidden appearance-none [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:border-none [&::-webkit-color-swatch]:rounded-full [&::-moz-color-swatch]:border-0 [&::-moz-color-swatch]:border-radius-full";
 
 export default function GratitudeTask({
   topic,
@@ -27,25 +36,33 @@ export default function GratitudeTask({
 }: GratitudeTaskProps) {
   const [isTimerDone, setIsTimerDone] = useState(false);
   const [input, setInput] = useState("");
-  const [color, setColor] = useState("#000000");
+  const [color, setColor] = useState("#ffffff");
   const [isInputDone, setIsInputDone] = useState(false);
 
-  // based on the selected topic, check available tasks not yet completed by user and return one randomly
-  const getRandomTask = (chosenTopic: Topic) => {
+  // on mount select a color-input step prompt and keep it through rerenders
+  const todaysColorPrompt = useMemo(
+    () =>
+      getRandomArrayItem(COLOR_INPUT_PROMPTS) ??
+      "Which color resonates with you today?",
+    []
+  );
+
+  // based on user's selected topic in previous step, check available tasks not yet completed by user and return one randomly
+  // useMemo to prevent changing todaysTask with each rerender (eg. with textarea input)
+  const todaysTask = useMemo(() => {
     const tasks = gratitudeQuestions.filter(
-      (task) => task.topic === chosenTopic && !task.completed
+      (task) => task.topic === topic && !task.completed
     );
-    if (tasks.length === 0) return null;
-    return tasks[Math.floor(Math.random() * tasks.length)];
-  };
+    return getRandomArrayItem(tasks);
+  }, [topic]);
 
-  //useMemo for getRandomTask function to not change the gratitude task on each rerender
-  const todaysTask = useMemo(() => getRandomTask(topic), [topic]);
-
+  // guard: if there are no tasks available, show a warning card and stop further component from rendering
   if (!todaysTask) {
-    // guard: if there are no tasks available, show a warning card and stop further component from rendering
     return (
-      <div className="flex flex-col items-center justify-center gap-4 text-center p-8 bg-gradient-to-b from-rose-200 to-rose-50 rounded-2xl shadow-lg max-w-md">
+      <div
+        className="flex flex-col items-center justify-center gap-4 text-center p-8 
+           bg-gradient-to-b from-rose-200 to-rose-50 rounded-2xl shadow-lg max-w-md"
+      >
         <span className="text-4xl">⚠️</span>
         <h2 className="text-2xl font-semibold text-rose-700">
           Oops, something went wrong
@@ -61,78 +78,143 @@ export default function GratitudeTask({
   /* 
   Display a single gratitude exercise for a chosen topic:
   - first instructions with timer
-  - after timer runs out (or is skipped) display form 
+  - after timer runs out (or is skipped) display form (first textarea, then color input)
   */
   return (
     <div
-      className="w-[clamp(300px,84vw,700px)] h-[clamp(500px,120vw,650px)] 
-       shadow-[inset_0_0_12px_rgba(255,255,255,0.3)] bg-gradient-to-br from-white/35 via-white/20 to-white/10
-       ring-1 ring-white/20 overflow-hidden rounded-[50px] sm:rounded-[70px] backdrop-blur-sm
-       px-2 py-10 flex flex-col justify-around"
+      className="w-full max-w-[700px] h-[clamp(440px,75svh,650px)] max-h-[calc(100svh-10rem)]
+      shadow-[0_8px_32px_rgba(167,139,250,0.15),0_12px_48px_rgba(219,39,119,0.08),inset_0_0_20px_rgba(255,255,255,0.4)]
+      bg-gradient-to-br from-white/40 via-white/25 to-white/15
+      ring-1 ring-white/30 overflow-hidden rounded-[60px] sm:rounded-[80px] backdrop-blur-md
+      px-4 sm:px-6 py-10 flex flex-col transition-all duration-300
+      hover:shadow-[0_12px_40px_rgba(167,139,250,0.2),0_16px_56px_rgba(219,39,119,0.12),inset_0_0_24px_rgba(255,255,255,0.5)]"
     >
+      {/* intro block: AnimatePresence handles mount/unmount fade between gratitude task steps */}
       <AnimatePresence mode="wait">
-        {/* intro block: AnimatePresence handles mount/unmount fade between gratitude task steps */}
-        <AnimateFadeInOut key="intro">
-          {soundtrack && timer && !isTimerDone && (
-            <div className="flex flex-col justify-around w-full h-full">
-              <GratitudeInstructions taskObj={todaysTask} />
-              <TimerDisplay
-                timer={timer}
-                soundtrack={soundtrack}
-                onComplete={() => setIsTimerDone(true)}
-              />
+        {!isTimerDone && soundtrack && timer ? (
+          <AnimateFadeInOut key="intro">
+            <div className="flex flex-col h-full">
+              <div className="h-2/5 flex items-center justify-center">
+                <GratitudeInstructions taskObj={todaysTask} />
+              </div>
+              <div className="h-3/5 min-h-0 flex items-center justify-center overflow-y-auto">
+                <TimerDisplay
+                  timer={timer}
+                  soundtrack={soundtrack}
+                  onComplete={() => setIsTimerDone(true)}
+                />
+              </div>
             </div>
-          )}
-        </AnimateFadeInOut>
-
-        {/* form block: wrapper + inner AnimatePresence to animate each step (text input -> color input) */}
-        {isTimerDone && (
-          <div className="w-full h-full">
-            <AnimateFadeInOut key="form">
-              <form className="w-full h-full">
-                <AnimatePresence mode="wait" initial={false}>
-                  {!isInputDone ? (
-                    <AnimateFadeInOut key="text-step">
-                      <div className="w-full h-full min-h-0 flex flex-col justify-between items-center">
+          </AnimateFadeInOut>
+        ) : (
+          /* form block: wrapper + inner AnimatePresence to animate each form step: text input -> color input */
+          <AnimateFadeInOut key="form">
+            <form className="w-full h-full">
+              <AnimatePresence mode="wait">
+                {!isInputDone ? (
+                  <AnimateFadeInOut key="text-step">
+                    <div className="flex flex-col h-full">
+                      <div className="h-2/5 flex items-center justify-center">
                         <GratitudeInstructions taskObj={todaysTask} />
-                        <div className="w-full flex flex-col items-center">
-                          <textarea
-                            className={textAreaStyle}
-                            value={input}
-                            required
-                            onChange={(e) => setInput(e.currentTarget.value)}
-                          />
-                        </div>
+                      </div>
+                      <div className="h-3/5 min-h-0 flex flex-col items-center justify-center gap-2">
+                        <textarea
+                          className="w-full max-w-[600px] h-full max-h-[279px] text-neutral-dark font-['Playpen_Sans',cursive]
+                          font-extralight text-[18px] sm:text-[22px] leading-[40px] resize-none
+                          pl-[66px] sm:pl-[100px] pr-4 pt-[7px] pb-[34px] rounded-[20px]
+                          shadow-[0_8px_24px_-4px_rgba(167,139,250,0.15),0_4px_12px_rgba(219,39,119,0.08),inset_0_2px_8px_rgba(255,255,255,0.6)]
+                          ring-1 ring-violet-200/30
+                          my-4 overflow-x-hidden overflow-y-auto
+                          transition-all duration-300
+                          focus:outline-none
+                          focus:shadow-[0_12px_32px_-2px_rgba(167,139,250,0.25),0_6px_16px_rgba(219,39,119,0.12),inset_0_2px_12px_rgba(255,255,255,0.7)]
+                          placeholder:italic placeholder:text-[18px] sm:placeholder:text-[22px] placeholder:text-center
+                          [background-image:url('./assets/images/lines_text_area.png'),url('./assets/backgrounds/wrinkled_paper.webp')]
+                          [background-repeat:repeat-y,repeat] [background-position:-30px_0,center] sm:[background-position:0_0,center]"
+                          style={{
+                            filter: "saturate(0.8) brightness(1.05)",
+                          }}
+                          placeholder="Write freely… even a few lines is enough."
+                          value={input}
+                          required
+                          onChange={(e) => setInput(e.currentTarget.value)}
+                        />
                         <button
                           type="button"
+                          disabled={!input.trim()}
+                          className="h-10 px-6 py-2 text-sm rounded-full w-full sm:w-auto
+                          bg-gradient-to-r from-violet-200/70 via-purple-200/70 to-pink-200/70
+                          ring-1 ring-violet-300/40
+                          border border-white/50
+                        text-violet-700 font-medium
+                          shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3),0_2px_8px_rgba(219,39,119,0.15)]
+                          hover:shadow-[0_6px_24px_-2px_rgba(167,139,250,0.4),0_4px_12px_rgba(219,39,119,0.2)]
+                        hover:from-violet-200/80 hover:via-purple-200/80 hover:to-pink-200/80
+                        hover:text-violet-800 active:translate-y-[1px] 
+                          active:scale-[0.98] active:shadow-[0_2px_8px_-2px_rgba(167,139,250,0.3)]
+                          disabled:opacity-50 disabled:cursor-not-allowed 
+                          transition-all duration-300 ease-out
+                          backdrop-blur-sm"
                           onClick={() => setIsInputDone(true)}
                         >
-                          Save and continue
+                          Continue →
                         </button>
                       </div>
-                    </AnimateFadeInOut>
-                  ) : (
-                    <AnimateFadeInOut key="color-step">
-                      <div className="w-full h-full min-h-0 flex flex-col justify-between items-center">
-                        <label>Which color resonates with you today?</label>
-                        <div className="flex items-center justify-center">
+                    </div>
+                  </AnimateFadeInOut>
+                ) : (
+                  /* once the textarea is done, continue to color input step */
+                  <AnimateFadeInOut key="color-step">
+                    <div className="flex flex-col h-full">
+                      <div className="h-2/5 flex items-center justify-center">
+                        <label
+                          htmlFor="moodColor"
+                          className="font-extralight text-[clamp(20px,4vw,24px)] tracking-wide text-center leading-snug
+                        text-neutral-800 supports-[background-clip:text]:text-transparent
+                          bg-gradient-to-r from-violet-600/90 via-purple-600/90 to-pink-600/90 bg-clip-text 
+                          [text-shadow:0_1px_0_rgba(255,255,255,.45)]"
+                        >
+                          {todaysColorPrompt}
+                        </label>
+                      </div>
+                      <div className="h-3/5 min-h-0 flex flex-col items-center justify-around overflow-y-auto">
+                        <div className="p-[3px] rounded-full bg-gradient-to-r from-violet-300/30 via-purple-300/30 to-pink-300/30">
                           <input
+                            id="moodColor"
                             type="color"
-                            className={colorInputStyle}
+                            className="h-40 w-40 rounded-full cursor-pointer appearance-none bg-white/70
+                            [&::-webkit-color-swatch-wrapper]:p-0
+                            [&::-webkit-color-swatch]:border-none [&::-webkit-color-swatch]:rounded-full
+                            shadow-[0_10px_30px_rgba(0,0,0,.15)] focus:outline-none"
                             value={color}
                             required
                             onChange={(e) => setColor(e.currentTarget.value)}
                           />
                         </div>
-
-                        <button>Submit Today's Thoughts</button>
+                        <button
+                          className="h-10 px-6 py-2 text-sm rounded-full w-full sm:w-auto
+                          bg-gradient-to-r from-violet-200/70 via-purple-200/70 to-pink-200/70
+                          ring-1 ring-violet-300/40
+                          border border-white/50
+                        text-violet-700 font-medium
+                          shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3),0_2px_8px_rgba(219,39,119,0.15)]
+                          hover:shadow-[0_6px_24px_-2px_rgba(167,139,250,0.4),0_4px_12px_rgba(219,39,119,0.2)]
+                        hover:from-violet-200/80 hover:via-purple-200/80 hover:to-pink-200/80
+                        hover:text-violet-800 active:translate-y-[1px] 
+                          active:scale-[0.98] active:shadow-[0_2px_8px_-2px_rgba(167,139,250,0.3)]
+                          disabled:opacity-50 disabled:cursor-not-allowed 
+                          transition-all duration-300 ease-out
+                          backdrop-blur-sm"
+                        >
+                          Submit Today's Thoughts
+                        </button>
                       </div>
-                    </AnimateFadeInOut>
-                  )}
-                </AnimatePresence>
-              </form>
-            </AnimateFadeInOut>
-          </div>
+                    </div>
+                  </AnimateFadeInOut>
+                )}
+              </AnimatePresence>
+            </form>
+          </AnimateFadeInOut>
         )}
       </AnimatePresence>
     </div>

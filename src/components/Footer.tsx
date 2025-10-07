@@ -50,7 +50,7 @@ const renderFooterMedia = (arr: FooterMedia[]) => {
 export default function Footer() {
   return (
     <footer className="w-full max-w-screen-2xl mx-auto block text-neutral-dark">
-      <div className="w-full flex items-center justify-between mt-3">
+      <div className="w-full flex items-center justify-between px-10 mt-3">
         <ul className="flex text-sm gap-3">{renderFooterLinks(footerLinks)}</ul>
         <span className="flex gap-3 text-sm items-center">
           {signature}

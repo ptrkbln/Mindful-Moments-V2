@@ -61,30 +61,28 @@ export default function TimerDisplay({
   }, []);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center justify-center w-full h-full">
       {!!timer && !!timeLeft && (
-        <>
-          {/*           <p className="font-light flex justify-center text-center">
-            While music plays, try closing your eyes and reflecting on the
-            question.
-          </p> */}
-
-          <span className="tabular-nums font-extralight font-['Nunito',cursive] text-[clamp(40px,20vw,80px)] text-neutral-dark/70">
-            {minutes}:{ss}
-          </span>
-        </>
+        <span className="tabular-nums font-extralight font-['Nunito',cursive] text-[clamp(40px,20vw,80px)] text-neutral-dark/70">
+          {minutes}:{ss}
+        </span>
       )}
 
       {timer === timeLeft && (
         <button
           onClick={startTimer}
-          className="h-10 px-4 rounded-full text-lg text-white
-                shadow-[0_10px_24px_-10px_rgba(167,139,250,.4)]
-                ring-1 ring-violet-200/20
-                active:translate-y-[1px] transition-all duration-300
-                [background:linear-gradient(135deg,#a78bfa,#c4b5fd)]
-                hover:[background:linear-gradient(135deg,#7c3aed,#a78bfa)]
-                hover:shadow-[0_12px_28px_-12px_rgba(167,139,250,.5)]"
+          className="h-10 px-6 py-2 text-sm rounded-full w-full sm:w-auto
+          bg-gradient-to-r from-violet-200/70 via-purple-200/70 to-pink-200/70
+          ring-1 ring-violet-300/40
+          border border-white/50
+        text-violet-700 font-medium
+          shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3),0_2px_8px_rgba(219,39,119,0.15)]
+          hover:shadow-[0_6px_24px_-2px_rgba(167,139,250,0.4),0_4px_12px_rgba(219,39,119,0.2)]
+        hover:from-violet-200/80 hover:via-purple-200/80 hover:to-pink-200/80
+        hover:text-violet-800 active:translate-y-[1px] 
+          active:scale-[0.98] active:shadow-[0_2px_8px_-2px_rgba(167,139,250,0.3)]
+          transition-all duration-300 ease-out
+          backdrop-blur-sm"
         >
           Let's start
         </button>
@@ -93,14 +91,18 @@ export default function TimerDisplay({
       {timeLeft > 0 && timer !== null && timeLeft < timer && (
         <button
           onClick={stopTimer}
-          className="h-10 px-4 text-sm rounded-full
-                bg-violet-100/80
-                ring-1 ring-violet-200/70
-                border border-violet-200/40
-                text-neutral-dark
-                shadow-[0_2px_10px_-2px_rgba(167,139,250,.15)]
-                hover:bg-violet-200/60 hover:text-violet-600 active:translate-y-[1px] 
-                transition-all duration-200"
+          className="h-10 px-6 py-2 text-sm rounded-full
+        bg-white/40
+          ring-1 ring-violet-200/30
+          border border-white/40
+        text-violet-600/80 font-medium
+          shadow-[0_2px_12px_-2px_rgba(167,139,250,0.2)]
+        hover:bg-white/50
+          hover:shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3)]
+        hover:text-violet-700 
+          active:translate-y-[1px] 
+          transition-all duration-300 ease-out
+          backdrop-blur-sm"
         >
           Skip
         </button>

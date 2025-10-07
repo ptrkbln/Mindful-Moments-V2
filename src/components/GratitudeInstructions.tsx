@@ -21,24 +21,31 @@ export default function GratitudeInstructions({
   }, [taskQuestions.length]);
 
   return (
-    <div
-      className="flex flex-col items-center gap-2
-                   [grid-template-rows:auto_auto_auto] w-full"
-    >
+    <div className="flex flex-col items-center gap-2 w-full">
       {/* Topic */}
-      <span className="text-[clamp(14px,4vw,16px)] py-2 font-light">
+      <span
+        className="text-[clamp(12px,4vw,14px)] py-2 font-light text-center
+        tracking-[0.15em] text-primary-dark/90
+        [text-shadow:0_2px_12px_rgba(167,139,250,0.3)]"
+      >
         GRATITUDE FOR {taskObj.topic.toUpperCase()}
       </span>
       {/* Main task + follow-up questions */}
       <AnimatePresence mode="wait">
         <AnimateFadeInOut key={i}>
           <div
-            className="font-extralight text-neutral-dark text-[clamp(18px,4vw,22px)] 
-                     tracking-wide font-['Playpen_Sans',cursive] text-center"
+            className="font-extralight text-[clamp(20px,4vw,24px)] tracking-wide text-center leading-snug
+          text-neutral-800 supports-[background-clip:text]:text-transparent
+            bg-gradient-to-r from-violet-600/90 via-purple-600/90 to-pink-600/90 bg-clip-text 
+            [text-shadow:0_1px_0_rgba(255,255,255,.45)]"
           >
             {taskQuestions[i]}
           </div>
-          <p className="text-center italic text-xs sm:text-sm text-neutral-dark/50 pt-2">
+          <p
+            className="text-center text-[11px] sm:text-xs lg:text-[13px]
+          text-neutral-500/75 pt-3 
+            [text-shadow:0_1px_4px_rgba(255,255,255,0.6)]"
+          >
             {i === 0
               ? "Opening thought"
               : i === taskQuestions.length - 1
@@ -47,38 +54,6 @@ export default function GratitudeInstructions({
           </p>
         </AnimateFadeInOut>
       </AnimatePresence>
-      {/*       <div className="sm:pt-4 flex gap-4">
-        <button
-          onClick={() =>
-            setI((prev) => (prev === 0 ? taskQuestions.length - 1 : prev - 1))
-          }
-          className="h-10 px-3 text-xs flex items-center justify-center rounded-full
-          bg-violet-100/80
-          ring-1 ring-violet-200/70
-          border border-violet-200/40
-          text-neutral-dark
-          shadow-[0_2px_10px_-2px_rgba(167,139,250,.15)]
-          hover:bg-violet-200/60 hover:text-violet-600 active:translate-y-[1px] 
-          transition-all duration-200 my-3"
-        >
-          <FaAngleLeft className="w-4 h-4" />
-        </button>
-        <button
-          onClick={() =>
-            setI((prev) => (prev === taskQuestions.length - 1 ? 0 : prev + 1))
-          }
-          className="h-10 px-3 text-xs flex items-center justify-center rounded-full
-          bg-violet-100/80
-          ring-1 ring-violet-200/70
-          border border-violet-200/40
-          text-neutral-dark
-          shadow-[0_2px_10px_-2px_rgba(167,139,250,.15)]
-          hover:bg-violet-200/60 hover:text-violet-600 active:translate-y-[1px] 
-          transition-all duration-200 my-3"
-        >
-          <FaAngleRight className="w-4 h-4" />
-        </button>
-      </div> */}
     </div>
   );
 }
