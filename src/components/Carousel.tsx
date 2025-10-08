@@ -48,7 +48,7 @@ export default function Carousel<T extends string | number>({
           `,
         backgroundBlendMode: "overlay, normal",
         backgroundSize: "cover, cover",
-        backgroundPosition: "center, center",
+        backgroundPosition: "center, center calc(50% - 60px)",
         filter:
           "saturate(.90) contrast(.96) brightness(1.04) hue-rotate(-4deg)",
         boxShadow: [

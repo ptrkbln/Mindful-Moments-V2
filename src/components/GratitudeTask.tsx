@@ -94,10 +94,10 @@ export default function GratitudeTask({
         {!isTimerDone && soundtrack && timer ? (
           <AnimateFadeInOut key="intro">
             <div className="flex flex-col h-full">
-              <div className="h-2/5 flex items-center justify-center">
+              <div className="h-1/3 flex items-center justify-center">
                 <GratitudeInstructions taskObj={todaysTask} />
               </div>
-              <div className="h-3/5 min-h-0 flex items-center justify-center overflow-y-auto">
+              <div className="h-2/3 min-h-0 flex items-center justify-center overflow-y-auto">
                 <TimerDisplay
                   timer={timer}
                   soundtrack={soundtrack}
@@ -114,17 +114,17 @@ export default function GratitudeTask({
                 {!isInputDone ? (
                   <AnimateFadeInOut key="text-step">
                     <div className="flex flex-col h-full">
-                      <div className="h-2/5 flex items-center justify-center">
+                      <div className="h-1/3 flex items-center justify-center">
                         <GratitudeInstructions taskObj={todaysTask} />
                       </div>
-                      <div className="h-3/5 min-h-0 flex flex-col items-center justify-center gap-2">
+                      <div className="h-2/3 min-h-0 flex flex-col items-center justify-center gap-2">
                         <textarea
                           className="w-full max-w-[600px] h-full max-h-[279px] text-neutral-dark font-['Playpen_Sans',cursive]
-                          font-extralight text-[18px] sm:text-[22px] leading-[40px] resize-none
+                          font-extralight text-[clamp(16px,4vw,20px)] leading-[40px] resize-none
                           pl-[66px] sm:pl-[100px] pr-4 pt-[7px] pb-[34px] rounded-[20px]
                           shadow-[0_8px_24px_-4px_rgba(167,139,250,0.15),0_4px_12px_rgba(219,39,119,0.08),inset_0_2px_8px_rgba(255,255,255,0.6)]
                           ring-1 ring-violet-200/30
-                          my-4 overflow-x-hidden overflow-y-auto
+                          my-4 overflow-x-hidden overflow-y-auto bg-local
                           transition-all duration-300
                           focus:outline-none
                           focus:shadow-[0_12px_32px_-2px_rgba(167,139,250,0.25),0_6px_16px_rgba(219,39,119,0.12),inset_0_2px_12px_rgba(255,255,255,0.7)]
@@ -166,7 +166,7 @@ export default function GratitudeTask({
                   /* once the textarea is done, continue to color input step */
                   <AnimateFadeInOut key="color-step">
                     <div className="flex flex-col h-full">
-                      <div className="h-2/5 flex items-center justify-center">
+                      <div className="h-1/3 flex items-center justify-center">
                         <label
                           htmlFor="moodColor"
                           className="font-extralight text-[clamp(20px,4vw,24px)] tracking-wide text-center leading-snug
@@ -177,7 +177,7 @@ export default function GratitudeTask({
                           {todaysColorPrompt}
                         </label>
                       </div>
-                      <div className="h-3/5 min-h-0 flex flex-col items-center justify-around overflow-y-auto">
+                      <div className="h-2/3 min-h-0 flex flex-col items-center justify-around overflow-y-auto">
                         <div className="p-[3px] rounded-full bg-gradient-to-r from-violet-300/30 via-purple-300/30 to-pink-300/30">
                           <input
                             id="moodColor"
