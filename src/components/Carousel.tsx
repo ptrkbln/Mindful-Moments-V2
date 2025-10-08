@@ -34,29 +34,15 @@ export default function Carousel<T extends string | number>({
     /* card (container) */
     <div
       className="group relative mx-auto
-      w-[clamp(300px,84vw,450px)] h-[clamp(300px,84vw,450px)]
-      overflow-hidden rounded-[50px] sm:rounded-[70px]"
+    w-[clamp(300px,84vw,450px)] h-[clamp(300px,84vw,450px)]
+    overflow-hidden rounded-[clamp(60px,8vw,80px)]
+    shadow-[0_40px_100px_-40px_rgba(76,119,133,0.15),0_20px_60px_-24px_rgba(0,0,0,0.06),inset_0_40px_80px_-60px_rgba(255,255,255,0.7),inset_0_-24px_72px_-56px_rgba(0,0,0,0.04)]
+    [filter:saturate(0.9)_contrast(0.96)_brightness(1.04)_hue-rotate(-4deg)]"
       style={{
-        backgroundImage: `
-          linear-gradient(
-          135deg,
-          rgba(253, 226, 228, .55) 0%,
-          rgba(226, 239, 243, .45) 50%,
-          rgba(204, 229, 246, .40) 100%
-          ),
-          url(${bgImage})
-          `,
+        backgroundImage: `linear-gradient(135deg, rgba(253,226,228,0.55) 0%, rgba(226,239,243,0.45) 50%, rgba(204,229,246,0.4) 100%), url(${bgImage})`,
         backgroundBlendMode: "overlay, normal",
         backgroundSize: "cover, cover",
-        backgroundPosition: "center, center calc(50% - 60px)",
-        filter:
-          "saturate(.90) contrast(.96) brightness(1.04) hue-rotate(-4deg)",
-        boxShadow: [
-          "0 40px 100px -40px rgba(76,119,133,.15)",
-          "0 20px 60px -24px rgba(0,0,0,.06)",
-          "inset 0 40px 80px -60px rgba(255,255,255,.70)",
-          "inset 0 -24px 72px -56px rgba(0,0,0,.04)",
-        ].join(", "),
+        backgroundPosition: "center center, center calc(50% - 70px)",
       }}
     >
       {/* slide-up panel, revealed on hover */}
@@ -65,12 +51,12 @@ export default function Carousel<T extends string | number>({
          h-[185px] sm:h-[50%]
          backdrop-blur-md 
          [background:linear-gradient(180deg,rgba(240,235,255,0.55)_0%,rgba(250,248,255,0.45)_50%,rgba(226,239,243,0.35)_100%)]
-         translate-y-[calc(100%-65px)]
+         translate-y-[calc(100%-70px)]
          transition-transform duration-400 
-         group-hover:translate-y-0"
+         group-hover:translate-y-0 sm:px-5"
       >
         {/* header: eg. Today I'll focus on */}
-        <div className="flex items-center justify-center py-4">
+        <div className="flex items-center justify-center pt-5 pb-1 sm:pt-4 sm:pb-4">
           <h2
             className="text-[clamp(20px,4vw,24px)] font-extralight text-neutral-dark 
                          tracking-wide font-['Playpen_Sans',cursive]"

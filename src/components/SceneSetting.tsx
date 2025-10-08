@@ -62,7 +62,7 @@ export default function SceneSetting({
           {topic && soundtrack && timer === null && (
             <AnimateFadeInOut key="timer">
               <Carousel
-                header="I'll reflect for ... seconds"
+                header="I'll reflect for...seconds"
                 options={TIMERS}
                 setterFunction={setTimer}
                 bgImage={bgTimer}

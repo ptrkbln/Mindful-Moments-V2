@@ -16,15 +16,15 @@ export default function SoundtrackPreview({
       <button
         type="button"
         onClick={isPlaying ? stop : play}
-        className="px-1 sm:px-2 flex items-center justify-center rounded-full
+        className="sm:px-2 flex items-center justify-center rounded-full
         text-violet-400/70
         hover:text-violet-500 hover:bg-violet-100/30 hover:scale-110
         transition-all duration-200 cursor-pointer"
       >
         {isPlaying ? (
-          <FaStop className="text-[clamp(14px,3.5vw,17px)]" />
+          <FaStop className="text-[clamp(15px,3.5vw,17px)]" />
         ) : (
-          <FaPlay className="text-[clamp(14px,3.5vw,17px)]" />
+          <FaPlay className="text-[17px]" />
         )}
       </button>
     </>

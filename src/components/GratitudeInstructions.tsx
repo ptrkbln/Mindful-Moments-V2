@@ -35,23 +35,27 @@ export default function GratitudeInstructions({
         <AnimateFadeInOut key={i}>
           <div
             className="font-extralight text-[clamp(20px,4vw,24px)] tracking-wide text-center leading-snug
-          text-neutral-800 supports-[background-clip:text]:text-transparent
+          text-neutral-800 supports-[background-clip:text]:text-transparent max-w-[40ch] mx-auto
             bg-gradient-to-r from-violet-600/90 via-purple-600/90 to-pink-600/90 bg-clip-text 
             [text-shadow:0_1px_0_rgba(255,255,255,.45)]"
           >
             {taskQuestions[i]}
           </div>
-          <p
-            className="text-center text-[11px] sm:text-xs lg:text-[13px]
-          text-neutral-500/75 pt-3 
-            [text-shadow:0_1px_4px_rgba(255,255,255,0.6)]"
-          >
-            {i === 0
-              ? "Opening thought"
-              : i === taskQuestions.length - 1
-              ? "Closing reflection"
-              : "Deeper reflection"}
-          </p>
+          <div className="flex items-center justify-center gap-2 pt-5">
+            <span className="w-8 h-[1px] bg-gradient-to-r from-transparent to-violet-300/80"></span>
+            <p
+              className="text-center italic text-xs sm:text-sm 
+    text-violet-400/80
+    tracking-wider font-light"
+            >
+              {i === 0
+                ? "Opening thought"
+                : i === taskQuestions.length - 1
+                ? "Closing reflection"
+                : "Deeper reflection"}
+            </p>
+            <span className="w-8 h-[1px] bg-gradient-to-l from-transparent to-violet-300/80"></span>
+          </div>
         </AnimateFadeInOut>
       </AnimatePresence>
     </div>
