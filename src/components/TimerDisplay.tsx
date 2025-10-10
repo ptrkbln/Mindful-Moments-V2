@@ -18,10 +18,13 @@ export default function TimerDisplay({
   const [timeLeft, setTimeLeft] = useState<number>(timer);
   // convert timer to mins and secs
   const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
-  const ss = String(seconds).padStart(2, "0");
+  const seconds = String(timeLeft % 60).padStart(2, "0");
 
   const { play, stop } = useSoundtrack(timer, soundtrack);
+
+  /*********** timer ********************/
+
+  /********************************** */
 
   function startTimer() {
     if (intervalRef.current) return; // timer already running
@@ -61,11 +64,56 @@ export default function TimerDisplay({
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full">
+    <div className="flex flex-col items-center justify-center w-full h-full gap-5 overflow-x-hidden">
       {!!timer && !!timeLeft && (
-        <span className="tabular-nums font-extralight font-['Nunito',cursive] text-[clamp(40px,20vw,80px)] text-neutral-dark/70">
-          {minutes}:{ss}
-        </span>
+        <div
+          className="relative flex items-center justify-center w-auto max-w-full h-[min(75%,_420px)] aspect-square
+    [container-type:inline-size]"
+        >
+          {/* Timer Circle + Animation */}
+          <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              fill="none"
+              stroke="rgba(167, 139, 250, 0.15)"
+              strokeWidth="1.5"
+            />
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              fill="none"
+              stroke="url(#zenGradient)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeDasharray={`${(timeLeft / timer) * 283} 283`}
+              className="transition-all duration-1000 ease-linear [filter:drop-shadow(0_0_6px_rgba(167,139,250,0.3))]"
+            />
+            <defs>
+              <linearGradient
+                id="zenGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="0%"
+              >
+                <stop offset="0%" stopColor="#a78bfa" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#e879f9" stopOpacity="0.5" />
+              </linearGradient>
+            </defs>
+          </svg>
+
+          {/* Timer text */}
+          <div
+            className="absolute text-[clamp(32px,14vw,65px)] font-extralight bg-gradient-to-br from-violet-500/50 to-pink-500/50
+                text-transparent bg-clip-text
+                drop-shadow-[0_2px_10px_rgba(255,255,255,.85)] tracking-[7px] font-[nunito]"
+          >
+            {minutes}:{seconds}
+          </div>
+        </div>
       )}
 
       {timer === timeLeft && (
@@ -91,7 +139,7 @@ export default function TimerDisplay({
       {timeLeft > 0 && timer !== null && timeLeft < timer && (
         <button
           onClick={stopTimer}
-          className="h-10 px-6 py-2 text-sm rounded-full
+          className="h-10 px-6 py-2 text-sm rounded-full w-full sm:w-auto
         bg-white/40
           ring-1 ring-violet-200/30
           border border-white/40

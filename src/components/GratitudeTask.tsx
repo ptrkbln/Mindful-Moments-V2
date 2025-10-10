@@ -82,11 +82,11 @@ export default function GratitudeTask({
   */
   return (
     <div
-      className="w-full max-w-[700px] h-[clamp(440px,75svh,650px)] max-h-[calc(100svh-10rem)]
+      className="w-full max-w-[700px] h-[clamp(440px,75svh,650px)] max-h-[calc(100svh-200px)]
       shadow-[0_8px_32px_rgba(167,139,250,0.15),0_12px_48px_rgba(219,39,119,0.08),inset_0_0_20px_rgba(255,255,255,0.4)]
       bg-gradient-to-br from-white/40 via-white/25 to-white/15
       ring-1 ring-white/30 overflow-hidden rounded-[60px] sm:rounded-[80px] backdrop-blur-md
-      px-4 sm:px-6 py-10 flex flex-col transition-all duration-300
+      px-4 sm:px-6 py-8 flex flex-col transition-all duration-300
       hover:shadow-[0_12px_40px_rgba(167,139,250,0.2),0_16px_56px_rgba(219,39,119,0.12),inset_0_0_24px_rgba(255,255,255,0.5)]"
     >
       {/* intro block: AnimatePresence handles mount/unmount fade between gratitude task steps */}
@@ -128,7 +128,7 @@ export default function GratitudeTask({
                           transition-all duration-300
                           focus:outline-none
                           focus:shadow-[0_12px_32px_-2px_rgba(167,139,250,0.25),0_6px_16px_rgba(219,39,119,0.12),inset_0_2px_12px_rgba(255,255,255,0.7)]
-                          placeholder:italic placeholder:text-[18px] sm:placeholder:text-[22px] placeholder:text-center
+                          placeholder:italic placeholder:text-[clamp(16px,4vw,20px)] placeholder:text-center
                           [background-image:url('./assets/images/lines_text_area.png'),url('./assets/backgrounds/wrinkled_paper.webp')]
                           [background-repeat:repeat-y,repeat] [background-position:-30px_0,center] sm:[background-position:0_0,center]"
                           style={{
