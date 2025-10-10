@@ -82,11 +82,11 @@ export default function GratitudeTask({
   */
   return (
     <div
-      className="w-full max-w-[700px] h-[clamp(440px,75svh,650px)] max-h-[calc(100svh-200px)]
+      className="w-full max-w-[700px] min-h-[440px] h-[75dvh] max-h-[min(650px,calc(100dvh-160px))]
       shadow-[0_8px_32px_rgba(167,139,250,0.15),0_12px_48px_rgba(219,39,119,0.08),inset_0_0_20px_rgba(255,255,255,0.4)]
       bg-gradient-to-br from-white/40 via-white/25 to-white/15
       ring-1 ring-white/30 overflow-hidden rounded-[60px] sm:rounded-[80px] backdrop-blur-md
-      px-4 sm:px-6 py-8 flex flex-col transition-all duration-300
+      px-4 sm:px-6 py-5 flex flex-col transition-all duration-300
       hover:shadow-[0_12px_40px_rgba(167,139,250,0.2),0_16px_56px_rgba(219,39,119,0.12),inset_0_0_24px_rgba(255,255,255,0.5)]"
     >
       {/* intro block: AnimatePresence handles mount/unmount fade between gratitude task steps */}
