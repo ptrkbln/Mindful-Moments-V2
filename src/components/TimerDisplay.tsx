@@ -64,12 +64,9 @@ export default function TimerDisplay({
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-start w-full h-full gap-7 overflow-x-hidden py-3">
+    <div className="flex flex-col items-center justify-start w-full h-full gap-7 overflow-hidden py-3">
       {!!timer && !!timeLeft && (
-        <div
-          className="relative flex items-center justify-center w-auto max-w-full h-[min(75%,_420px)] aspect-square
-    [container-type:inline-size]"
-        >
+        <div className="relative flex items-center justify-center w-auto max-w-full h-[min(75%,_420px)] aspect-square">
           {/* Timer Circle + Animation */}
           <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
             <circle
@@ -107,9 +104,8 @@ export default function TimerDisplay({
 
           {/* Timer text */}
           <div
-            className="absolute text-[clamp(35px,13vw,60px)] font-extralight bg-gradient-to-br from-violet-500/50 to-pink-500/50
-                text-transparent bg-clip-text
-                drop-shadow-[0_2px_10px_rgba(255,255,255,.85)] tracking-[7px] font-[nunito]"
+            className="absolute text-[clamp(35px,12vw,55px)] font-extralight text-primary/60 bg-clip-text
+                drop-shadow-[0_2px_12px_rgba(255,255,255,.85)] tracking-[0.15em] font-[nunito]"
           >
             {minutes}:{seconds}
           </div>
