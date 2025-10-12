@@ -16,7 +16,7 @@ export default function GratitudeInstructions({
   useEffect(() => {
     const id = setInterval(() => {
       setI((prev) => (prev + 1) % taskQuestions.length);
-    }, 10000);
+    }, 15000);
     return () => clearInterval(id);
   }, [taskQuestions.length]);
 
@@ -34,8 +34,8 @@ export default function GratitudeInstructions({
       <AnimatePresence mode="wait">
         <AnimateFadeInOut key={i}>
           <div
-            className="font-light text-[clamp(21px,4vw,24px)] tracking-wide text-center leading-tight
-          text-neutral-800 supports-[background-clip:text]:text-transparent max-w-[50ch] mx-auto min-h-[2.6em]
+            className="font-light text-[clamp(21px,4vw,25px)] tracking-wide text-center leading-tight
+          text-neutral-800 supports-[background-clip:text]:text-transparent max-w-[45ch] mx-auto min-h-[2.6em]
             bg-gradient-to-r from-violet-600/90 via-purple-600/90 to-pink-600/90 bg-clip-text 
             [text-shadow:0_1px_0_rgba(255,255,255,.45)] flex items-center justify-center"
           >
