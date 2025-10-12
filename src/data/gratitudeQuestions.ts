@@ -35,9 +35,9 @@ export const gratitudeQuestions: DailyTask[] = [
   {
     id: "self-3",
     topic: "Self",
-    task: "Think of a challenge you overcame. What did you learn?",
+    task: "Think of a challenge you overcame.",
     followUps: [
-      "Which skills helped you through it?",
+      "What did you learn?",
       "How did you grow from it?",
       "How will you face future challenges differently?",
     ],
@@ -81,7 +81,7 @@ export const gratitudeQuestions: DailyTask[] = [
   {
     id: "others-3",
     topic: "Others",
-    task: "Reflect on a meaningful relationship in your life.",
+    task: "Think of a meaningful relationship in your life.",
     followUps: [
       "What makes it special?",
       "How does it enrich your life?",
