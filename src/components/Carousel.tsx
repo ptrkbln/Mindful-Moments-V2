@@ -89,7 +89,7 @@ export default function Carousel<T extends string | number>({
               active:translate-y-[1px] transition-all duration-200"
               aria-label="previous"
             >
-              <FaAngleLeft className="w-4 h-4" />
+              <FaAngleLeft className="size-4" />
             </button>
             <button
               onClick={next}
@@ -100,7 +100,7 @@ export default function Carousel<T extends string | number>({
               transition-all duration-200"
               aria-label="next"
             >
-              <FaAngleRight className="w-4 h-4" />
+              <FaAngleRight className="size-4" />
             </button>
             <button
               onClick={() => setterFunction(currentValue)}

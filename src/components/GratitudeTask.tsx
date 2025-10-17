@@ -37,13 +37,12 @@ export default function GratitudeTask({
   soundtrack,
   timer,
 }: GratitudeTaskProps) {
-  const [isTimerDone, setIsTimerDone] = useState(false); // unlocks the form
-  const [input, setInput] = useState(""); // textarea value
-  const [color, setColor] = useState("#ffffff"); // selected color value
-  const [isInputDone, setIsInputDone] = useState(false); // switches text -> color in form
-  const [showColorPicker, setShowColorPicker] = useState(false); // toggles color picker
+  const [isTimerDone, setIsTimerDone] = useState(false);
+  const [input, setInput] = useState("");
+  const [color, setColor] = useState("#ffffff");
+  const [isInputDone, setIsInputDone] = useState(false);
+  const [showColorPicker, setShowColorPicker] = useState(false);
 
-  // on mount select a random prompt for selected color step in form (stable across re-renders)
   const todaysColorPrompt = useMemo(
     () =>
       getRandomArrayItem(COLOR_INPUT_PROMPTS) ??
@@ -51,8 +50,6 @@ export default function GratitudeTask({
     []
   );
 
-  // based on user's selected topic in previous step, check available tasks not yet completed by user and return one randomly
-  // useMemo to prevent changing todaysTask with each rerender (eg. with textarea input)
   const todaysTask = useMemo(() => {
     const tasks = gratitudeQuestions.filter(
       (task) => task.topic === topic && !task.completed
@@ -60,20 +57,20 @@ export default function GratitudeTask({
     return getRandomArrayItem(tasks);
   }, [topic]);
 
-  // guard: if there are no tasks available, show a warning card and stop further component from rendering
   if (!todaysTask) {
     return (
       <div
-        className="flex flex-col items-center justify-center gap-4 text-center p-8 
-           bg-gradient-to-b from-rose-200 to-rose-50 rounded-2xl shadow-lg max-w-md"
+        className="flex flex-col items-center justify-center gap-6 text-center p-10
+      bg-white/40 backdrop-blur-sm rounded-3xl 
+      shadow-[0_8px_32px_-8px_rgba(0,0,0,0.2)]
+      ring-1 ring-white/40 max-w-md"
       >
-        <span className="text-4xl">⚠️</span>
-        <h2 className="text-2xl font-semibold text-rose-700">
-          Oops, something went wrong
+        <h2 className="text-xl font-light text-purple-600/90 tracking-wide">
+          Something went wrong
         </h2>
-        <p className="text-neutral-600">
-          We couldn't load a gratitude task for you. Please refresh the page and
-          try again.
+        <p className="text-sm text-violet-400/80 font-light leading-relaxed max-w-xs">
+          We couldn't load your practice today. Take a mindful breath and try
+          refreshing the page.
         </p>
       </div>
     );
@@ -93,7 +90,6 @@ export default function GratitudeTask({
       px-4 sm:px-6 py-5 flex flex-col transition-all duration-300
       hover:shadow-[0_12px_40px_rgba(167,139,250,0.2),0_16px_56px_rgba(219,39,119,0.12),inset_0_0_24px_rgba(255,255,255,0.5)]"
     >
-      {/* intro block: AnimatePresence handles mount/unmount fade between gratitude task steps */}
       <AnimatePresence mode="wait">
         {!isTimerDone && soundtrack && timer ? (
           <AnimateFadeInOut key="intro">
@@ -111,7 +107,6 @@ export default function GratitudeTask({
             </div>
           </AnimateFadeInOut>
         ) : (
-          /* form block: wrapper + inner AnimatePresence to animate each form step: text input -> color input */
           <AnimateFadeInOut key="form">
             <form
               className="w-full h-full"
@@ -132,7 +127,7 @@ export default function GratitudeTask({
                           shadow-[0_8px_24px_-4px_rgba(167,139,250,0.15),0_4px_12px_rgba(219,39,119,0.08),inset_0_2px_8px_rgba(255,255,255,0.6)]
                           ring-1 ring-violet-200/30
                           my-4 overflow-x-hidden overflow-y-auto bg-local
-                          transition-all duration-300
+                          transition-all duration-300 focus:outline-none
                           focus:shadow-[0_12px_32px_-2px_rgba(167,139,250,0.25),0_6px_16px_rgba(219,39,119,0.12),inset_0_2px_12px_rgba(255,255,255,0.7)]
                           placeholder:italic placeholder:text-[clamp(16px,4vw,20px)] placeholder:text-left sm:placeholder:text-center
                           [background-image:url('./assets/images/lines_text_area.png'),url('./assets/backgrounds/wrinkled_paper.webp')]
@@ -169,10 +164,8 @@ export default function GratitudeTask({
                     </div>
                   </AnimateFadeInOut>
                 ) : (
-                  /* once the textarea is done, continue to color input step */
                   <AnimateFadeInOut key="color-step">
                     <div className="flex flex-col h-full items-center justify-around pt-[8vh]">
-                      {/* Top section - always visible instructions */}
                       <label
                         htmlFor="moodColor"
                         className="font-extralight text-[clamp(20px,4vw,24px)] tracking-wide text-center leading-snug
@@ -183,7 +176,6 @@ export default function GratitudeTask({
                         {todaysColorPrompt}
                       </label>
 
-                      {/* Middle section - Color preview circle (button) */}
                       <div className="flex flex-col items-center justify-end h-full mt-5">
                         <div className="relative p-[3px] rounded-full bg-gradient-to-r from-violet-300/30 via-purple-300/30 to-pink-300/30">
                           <button
@@ -201,9 +193,7 @@ export default function GratitudeTask({
                         </div>
                       </div>
 
-                      {/* Bottom section - conditionally display picker or submit button (same height) */}
                       <div className="flex items-center justify-center min-h-[45%] relative">
-                        {/* Color Picker - inline style needed for HexColorPicker */}
                         <div
                           className={`absolute p-4 rounded-3xl
                         bg-white/40 backdrop-blur-sm
@@ -228,7 +218,6 @@ export default function GratitudeTask({
                           <button
                             type="button"
                             onClick={() => setShowColorPicker(false)}
-                            aria-label="Close color picker"
                             className="absolute -top-2 -right-2 z-10 flex items-center justify-center
                             size-6 rounded-full bg-white/60 backdrop-blur-md text-purple-400/70
                             shadow-lg ring-1 ring-purple-200/30
@@ -239,10 +228,9 @@ export default function GratitudeTask({
                           </button>
                         </div>
 
-                        {/* Send selected color with the form. Required because HexColorPicker doesn't submit a value */}
+                        {/* required for form due to HexColorPicker not submitting a value */}
                         <input type="hidden" name="moodColor" value={color} />
 
-                        {/* Default content (tip + submit button) when color picker is toggled off */}
                         <div
                           className={`flex flex-col justify-between h-full w-full items-center
                           transition-all duration-150
