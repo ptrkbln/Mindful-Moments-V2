@@ -2,6 +2,9 @@ import type { Timer } from "../data/timer";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { useSoundtrack } from "../hooks/useSoundtrack";
 import type { Soundtrack } from "../data/soundtracks";
+import Player from "lottie-react";
+import type { LottieRefCurrentProps } from "lottie-react";
+import slowFillAnimation from "../assets/images/slow-fill.json";
 
 type TimerDisplayProps = {
   timer: Timer;
@@ -15,20 +18,14 @@ export default function TimerDisplay({
   onComplete,
 }: TimerDisplayProps) {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const animationRef = useRef<LottieRefCurrentProps>(null);
   const [timeLeft, setTimeLeft] = useState<number>(timer);
-  // convert timer to mins and secs
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = String(timeLeft % 60).padStart(2, "0");
-
   const { play, stop } = useSoundtrack(timer, soundtrack);
 
-  /*********** timer ********************/
-
-  /********************************** */
-
   function startTimer() {
-    if (intervalRef.current) return; // timer already running
-    play();
+    if (intervalRef.current) return; // if timer's already running, skip this logic
+    play(); // play soundtrack
+    if (animationRef.current) animationRef.current.play();
     intervalRef.current = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev > 0) return prev - 1;
@@ -65,9 +62,9 @@ export default function TimerDisplay({
 
   return (
     <div className="flex flex-col items-center justify-start w-full h-full gap-7 overflow-hidden py-3">
-      {!!timer && !!timeLeft && (
+      {!!timer && timeLeft !== null && (
         <div className="relative flex items-center justify-center w-auto max-w-full h-[min(75%,_420px)] aspect-square">
-          {/* Timer Circle + Animation */}
+          {/* Cirlce outer animation */}
           <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
             <circle
               cx="50"
@@ -102,12 +99,22 @@ export default function TimerDisplay({
             </defs>
           </svg>
 
-          {/* Timer text */}
+          {/* Circle inner animation */}
           <div
-            className="absolute text-[clamp(35px,12vw,55px)] font-extralight text-primary/60 bg-clip-text
-                drop-shadow-[0_2px_12px_rgba(255,255,255,.85)] tracking-[0.15em] font-[nunito]"
+            className="absolute rounded-full inset-[-8.4%] overflow-hidden pointer-events-none"
+            style={{ transform: "translateX(-0.1%) translateY(-0.4%)" }}
           >
-            {minutes}:{seconds}
+            <Player
+              autoplay={false}
+              lottieRef={animationRef}
+              loop
+              renderer="svg"
+              animationData={slowFillAnimation}
+              style={{
+                opacity: 0.5,
+                filter: "hue-rotate(120deg)",
+              }}
+            />
           </div>
         </div>
       )}
@@ -130,7 +137,7 @@ export default function TimerDisplay({
         </button>
       )}
 
-      {timeLeft > 0 && timer !== null && timeLeft < timer && (
+      {timeLeft > 0 && timeLeft < timer && (
         <button
           onClick={stopTimer}
           className="h-10 px-6 py-2 text-sm rounded-full w-[95%] sm:w-auto
