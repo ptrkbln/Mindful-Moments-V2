@@ -1,7 +1,17 @@
-import type { Topic } from "./topics";
+export const TOPICS = [
+  "Self",
+  "Others",
+  "Nature",
+  "Home",
+  "Skills",
+  "Experiences",
+] as const;
+
+// derive the union type from TOPICS
+export type Topic = (typeof TOPICS)[number];
 
 export type DailyTask = {
-  id: string;
+  id: `${Topic}-${number}`;
   topic: Topic;
   task: string;
   followUps: string[];
@@ -11,45 +21,35 @@ export type DailyTask = {
 export const gratitudeQuestions: DailyTask[] = [
   // Self
   {
-    id: "self-1",
+    id: "Self-1",
     topic: "Self",
     task: "What's one personal strength you're grateful for today?",
     followUps: [
       "How did you use this strength recently?",
-      "How does it support your well-being?",
       "How can you lean on it tomorrow?",
     ],
     completed: false,
   },
   {
-    id: "self-2",
+    id: "Self-2",
     topic: "Self",
     task: "Recall a recent moment of calm or peace.",
-    followUps: [
-      "What created that calm?",
-      "How did it affect your mood?",
-      "How can you create more of it?",
-    ],
+    followUps: ["What created that calm?", "How can you create more of it?"],
     completed: false,
   },
   {
-    id: "self-3",
+    id: "Self-3",
     topic: "Self",
     task: "Think of a challenge you overcame.",
-    followUps: [
-      "What did you learn?",
-      "How did you grow from it?",
-      "How will you face future challenges differently?",
-    ],
+    followUps: ["What did you learn?", "How did you grow from it?"],
     completed: false,
   },
   {
-    id: "self-4",
+    id: "Self-4",
     topic: "Self",
     task: "Notice something small you enjoyed today.",
     followUps: [
       "Why did it stand out?",
-      "How did it make you feel?",
       "How can you notice more of these moments?",
     ],
     completed: false,
@@ -57,231 +57,160 @@ export const gratitudeQuestions: DailyTask[] = [
 
   // Others
   {
-    id: "others-1",
+    id: "Others-1",
     topic: "Others",
     task: "Think of someone who supported you recently.",
-    followUps: [
-      "What did they do?",
-      "How did it affect you?",
-      "How could you thank them?",
-    ],
+    followUps: ["What did they do?", "How could you thank them?"],
     completed: false,
   },
   {
-    id: "others-2",
+    id: "Others-2",
     topic: "Others",
     task: "Recall a kind act you witnessed or received.",
-    followUps: [
-      "What was the act?",
-      "How did it make you feel?",
-      "How can you pass kindness forward?",
-    ],
+    followUps: ["What was the act?", "How did it make you feel?"],
     completed: false,
   },
   {
-    id: "others-3",
+    id: "Others-3",
     topic: "Others",
     task: "Think of a meaningful relationship in your life.",
-    followUps: [
-      "What makes it special?",
-      "How does it enrich your life?",
-      "How can you nurture it?",
-    ],
+    followUps: ["What makes it special?", "How does it enrich your life?"],
     completed: false,
   },
   {
-    id: "others-4",
+    id: "Others-4",
     topic: "Others",
-    task: "Write about a joyful moment with a friend or family member.",
-    followUps: [
-      "What made it memorable?",
-      "How did it strengthen your bond?",
-      "How can you create more moments like it?",
-    ],
+    task: "Recall a joyful moment with a friend or family.",
+    followUps: ["What made it memorable?", "How did it strengthen your bond?"],
     completed: false,
   },
 
   // Nature
   {
-    id: "nature-1",
+    id: "Nature-1",
     topic: "Nature",
     task: "Think of a recent moment outdoors that made you smile.",
-    followUps: [
-      "What did you notice?",
-      "How did it affect your mood?",
-      "How can you spend more time outside?",
-    ],
+    followUps: ["What did you notice?", "How can you spend more time outside?"],
     completed: false,
   },
   {
-    id: "nature-2",
+    id: "Nature-2",
     topic: "Nature",
     task: "Describe something in nature you find beautiful.",
     followUps: [
       "Why does it stand out to you?",
-      "What feelings does it spark?",
       "How can you enjoy it more often?",
     ],
     completed: false,
   },
   {
-    id: "nature-3",
+    id: "Nature-3",
     topic: "Nature",
     task: "Write about an animal you feel grateful for.",
     followUps: [
       "What role does it play in your life?",
       "What memories do you cherish?",
-      "How can you show it care?",
     ],
     completed: false,
   },
   {
-    id: "nature-4",
+    id: "Nature-4",
     topic: "Nature",
     task: "Recall a time the weather lifted your spirits.",
-    followUps: [
-      "What was the weather like?",
-      "How did it change your mood?",
-      "How can you notice these small shifts more often?",
-    ],
+    followUps: ["What was the weather like?", "How did it change your mood?"],
     completed: false,
   },
 
   // Home
   {
-    id: "home-1",
+    id: "Home-1",
     topic: "Home",
     task: "List three things about your home you're thankful for.",
-    followUps: [
-      "Why do they matter to you?",
-      "How do they add comfort?",
-      "How can you appreciate them more?",
-    ],
+    followUps: ["Why do they matter to you?", "How do they add comfort?"],
     completed: false,
   },
   {
-    id: "home-2",
+    id: "Home-2",
     topic: "Home",
     task: "Recall a cozy moment you had at home recently.",
-    followUps: [
-      "What made it cozy?",
-      "How did it affect your mood?",
-      "How can you create more of these?",
-    ],
+    followUps: ["What made it cozy?", "How did it affect your mood?"],
     completed: false,
   },
   {
-    id: "home-3",
+    id: "Home-3",
     topic: "Home",
     task: "Think of a daily routine at home that supports you.",
-    followUps: [
-      "How does it help your day?",
-      "Why do you value it?",
-      "How could you improve it?",
-    ],
+    followUps: ["How does it help your day?", "Why do you value it?"],
     completed: false,
   },
   {
-    id: "home-4",
+    id: "Home-4",
     topic: "Home",
     task: "Reflect on a special object in your home.",
-    followUps: [
-      "Why is it meaningful?",
-      "What memories are tied to it?",
-      "How can you honor its value?",
-    ],
+    followUps: ["Why is it meaningful?", "What memories are tied to it?"],
     completed: false,
   },
 
   // Skills
   {
-    id: "skills-1",
+    id: "Skills-1",
     topic: "Skills",
     task: "What skill are you grateful to have developed?",
     followUps: [
       "How has it helped you recently?",
       "Why does it matter to you?",
-      "How can you keep improving it?",
     ],
     completed: false,
   },
   {
-    id: "skills-2",
+    id: "Skills-2",
     topic: "Skills",
     task: "Think of a recent accomplishment you're proud of.",
-    followUps: [
-      "What steps did you take?",
-      "How did it change you?",
-      "What's the next goal?",
-    ],
+    followUps: ["What steps did you take?", "How did it change you?"],
     completed: false,
   },
   {
-    id: "skills-3",
+    id: "Skills-3",
     topic: "Skills",
     task: "Recall something new you learned recently.",
-    followUps: [
-      "How did you learn it?",
-      "How has it benefited you?",
-      "What do you want to learn next?",
-    ],
+    followUps: ["How did you learn it?", "How has it benefited you?"],
     completed: false,
   },
   {
-    id: "skills-4",
+    id: "Skills-4",
     topic: "Skills",
     task: "Write about a time your creativity shined.",
-    followUps: [
-      "What did you create?",
-      "How did the process feel?",
-      "How can you bring more creativity into daily life?",
-    ],
+    followUps: ["What did you create?", "How did the process feel?"],
     completed: false,
   },
 
   // Experiences
   {
-    id: "exp-1",
+    id: "Experiences-1",
     topic: "Experiences",
     task: "Recall a recent positive experience.",
-    followUps: [
-      "What made it special?",
-      "How did it affect you?",
-      "What lasting impact did it have?",
-    ],
+    followUps: ["What made it special?", "How did it affect you?"],
     completed: false,
   },
   {
-    id: "exp-2",
+    id: "Experiences-2",
     topic: "Experiences",
     task: "Think of a trip or outing you feel grateful for.",
-    followUps: [
-      "What stood out about it?",
-      "How did it change your outlook?",
-      "What memory stays with you most?",
-    ],
+    followUps: ["What stood out about it?", "What memory stays with you most?"],
     completed: false,
   },
   {
-    id: "exp-3",
+    id: "Experiences-3",
     topic: "Experiences",
     task: "Describe a joyful surprise you had recently.",
-    followUps: [
-      "What was surprising?",
-      "Why did it matter?",
-      "How did it affect your day?",
-    ],
+    followUps: ["What was surprising?", "How did it affect your day?"],
     completed: false,
   },
   {
-    id: "exp-4",
+    id: "Experiences-4",
     topic: "Experiences",
     task: "Write about an inspiring moment you experienced.",
-    followUps: [
-      "What inspired you?",
-      "How did it shape your thinking?",
-      "How can you keep that inspiration alive?",
-    ],
+    followUps: ["What inspired you?", "How did it shape your thinking?"],
     completed: false,
   },
 ];

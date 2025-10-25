@@ -1,4 +1,4 @@
-import { type Topic } from "../data/topics";
+import type { Topic } from "../data/gratitudeQuestions";
 import { SOUNDTRACK_LABELS, type Soundtrack } from "../data/soundtracks";
 import { type Dispatch, type JSX, type SetStateAction } from "react";
 import Carousel from "../components/Carousel";

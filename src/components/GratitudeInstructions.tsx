@@ -12,11 +12,14 @@ export default function GratitudeInstructions({
   const [i, setI] = useState(0);
   const taskQuestions: string[] = [taskObj.task, ...taskObj.followUps]; // main task and its follow-ups
 
-  // rotate between main task and its follow-ups every 10 secs
+  // rotate between main task and its follow-ups every 15 secs
   useEffect(() => {
+    if (taskQuestions.length === 0) return;
+
     const id = setInterval(() => {
       setI((prev) => (prev + 1) % taskQuestions.length);
     }, 15000);
+
     return () => clearInterval(id);
   }, [taskQuestions.length]);
 

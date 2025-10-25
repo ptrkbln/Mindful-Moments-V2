@@ -2,7 +2,7 @@ import { useState } from "react";
 import SceneSetting from "../components/SceneSetting";
 import type { Soundtrack } from "../data/soundtracks";
 import type { Timer } from "../data/timer";
-import type { Topic } from "../data/topics";
+import type { Topic } from "../data/gratitudeQuestions";
 import GratitudeTask from "../components/GratitudeTask";
 import { getAvailableTopics } from "../utils/gratitudeUtils";
 
