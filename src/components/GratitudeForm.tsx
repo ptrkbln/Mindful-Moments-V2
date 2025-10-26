@@ -7,17 +7,58 @@ import { IoIosClose } from "react-icons/io";
 import { getRandomArrayItem } from "../utils/array";
 import type { DailyTask } from "../data/gratitudeQuestions";
 import { STORAGE_KEY } from "../utils/storage";
-import { toast } from "sonner";
 
 type DateKey = string;
 type DailyEntry = {
   taskId: DailyTask["id"];
   answers: { journalText: string; moodColor: string };
 };
+
+function isDailyEntry(x: unknown): x is DailyEntry {
+  if (!x || typeof x !== "object") return false;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const object = x as any;
+  const hasTaskId = typeof object.taskId === "string";
+  const hasAnswers =
+    object.answers &&
+    typeof object.answers === "object" &&
+    typeof object.answers.journalText === "string" &&
+    typeof object.answers.moodColor === "string";
+  return hasTaskId && hasAnswers;
+}
+
 type Root = {
   v: 1;
   entriesByDate: Record<DateKey, DailyEntry>;
 };
+
+function isRoot(x: unknown): x is Root {
+  if (!x || typeof x !== "object" || Array.isArray(x)) return false;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const object = x as any;
+  if (object.v !== 1) return false;
+  if (
+    !object.entriesByDate ||
+    typeof object.entriesByDate !== "object" ||
+    Array.isArray(object.entriesByDate)
+  )
+    return false;
+  for (const key in object.entriesByDate) {
+    if (!isDailyEntry(object.entriesByDate[key])) return false;
+  }
+  return true;
+}
+
+function parsedRoot(raw: string | null): Root | null {
+  if (!raw) return null;
+  try {
+    const data: unknown = JSON.parse(raw);
+    return isRoot(data) ? data : null;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
 
 const COLOR_INPUT_PROMPTS = [
   "Which color resonates with you today?",
@@ -69,24 +110,9 @@ export default function GratitudeForm({
       };
 
       const storedRootRaw = localStorage.getItem(STORAGE_KEY);
-      const storedRoot: Root | null = storedRootRaw
-        ? JSON.parse(storedRootRaw)
-        : null;
+      const storedRoot = parsedRoot(storedRootRaw);
 
-      // root valid if not null/undefined, is object and not array
-      const isRootValid =
-        storedRoot != null &&
-        !Array.isArray(storedRoot) &&
-        typeof storedRoot === "object";
-
-      // entriesByDate is valid if root is valid, it exists as a property, is object and not array
-      const isEntriesByDateValid =
-        isRootValid &&
-        !!storedRoot.entriesByDate &&
-        !Array.isArray(storedRoot.entriesByDate) &&
-        typeof storedRoot.entriesByDate === "object";
-
-      const updatedRoot: Root = isEntriesByDateValid
+      const updatedRoot: Root = storedRoot
         ? {
             ...storedRoot,
             entriesByDate: {
@@ -99,16 +125,10 @@ export default function GratitudeForm({
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRoot));
 
       setIsTodayDone(true);
-      toast.success("Saved", {
-        description: "Your gratitude entry was saved.",
-        className:
-          "border-l-4 border-l-violet-300/70 [--icon-color:theme(colors.violet.400)]",
-      });
     } catch (error) {
       console.error("Error saving to localStorage:", error);
       // toast notification
       // what do to with form inputs??
-      toast.error("Failed to save");
     }
   }
 

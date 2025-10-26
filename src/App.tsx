@@ -8,15 +8,17 @@ import PracticePage from "./pages/PracticePage";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/app" element={<Layout />}>
-          <Route path="practice" element={<PracticePage />} />
-          <Route path="journal" element={<JournalPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/app" element={<Layout />}>
+            <Route path="practice" element={<PracticePage />} />
+            <Route path="journal" element={<JournalPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
