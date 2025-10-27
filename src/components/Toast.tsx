@@ -15,7 +15,7 @@ export default function Toast() {
     if (isOpen && !isPaused) {
       const timer = setTimeout(() => {
         setIsOpen(false);
-      }, 4500);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [isOpen, setIsOpen, isPaused]);
@@ -24,13 +24,13 @@ export default function Toast() {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0, y: -35, scale: 0.75 }}
+          initial={{ opacity: 0, y: -25, scale: 0.75 }}
           animate={{
             opacity: 1,
-            y: 0,
+            y: 50,
             scale: 1,
           }}
-          exit={{ opacity: 0, y: -35, scale: 0.75 }}
+          exit={{ opacity: 0, y: -25, scale: 0.75 }}
           transition={{
             duration: 0.4,
             ease: "easeOut",

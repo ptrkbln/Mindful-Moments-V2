@@ -7,58 +7,15 @@ import { IoIosClose } from "react-icons/io";
 import { getRandomArrayItem } from "../utils/array";
 import type { DailyTask } from "../data/gratitudeQuestions";
 import { STORAGE_KEY } from "../utils/storage";
-
-type DateKey = string;
-type DailyEntry = {
-  taskId: DailyTask["id"];
-  answers: { journalText: string; moodColor: string };
-};
-
-function isDailyEntry(x: unknown): x is DailyEntry {
-  if (!x || typeof x !== "object") return false;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const object = x as any;
-  const hasTaskId = typeof object.taskId === "string";
-  const hasAnswers =
-    object.answers &&
-    typeof object.answers === "object" &&
-    typeof object.answers.journalText === "string" &&
-    typeof object.answers.moodColor === "string";
-  return hasTaskId && hasAnswers;
-}
-
-type Root = {
-  v: 1;
-  entriesByDate: Record<DateKey, DailyEntry>;
-};
-
-function isRoot(x: unknown): x is Root {
-  if (!x || typeof x !== "object" || Array.isArray(x)) return false;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const object = x as any;
-  if (object.v !== 1) return false;
-  if (
-    !object.entriesByDate ||
-    typeof object.entriesByDate !== "object" ||
-    Array.isArray(object.entriesByDate)
-  )
-    return false;
-  for (const key in object.entriesByDate) {
-    if (!isDailyEntry(object.entriesByDate[key])) return false;
-  }
-  return true;
-}
-
-function parsedRoot(raw: string | null): Root | null {
-  if (!raw) return null;
-  try {
-    const data: unknown = JSON.parse(raw);
-    return isRoot(data) ? data : null;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-}
+import { useToast } from "../contexts/ToastContext";
+import { useNavigate } from "react-router-dom";
+import { getTodayDateKey } from "../utils/getTodayDateKey";
+import {
+  parsedRoot,
+  type DateKey,
+  type DailyEntry,
+  type Root,
+} from "../utils/storage";
 
 const COLOR_INPUT_PROMPTS = [
   "Which color resonates with you today?",
@@ -81,14 +38,10 @@ export default function GratitudeForm({
   const [color, setColor] = useState("#ffffff");
   const [isInputDone, setIsInputDone] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const [date] = useState(() => {
-    const now = new Date();
-    const dd = now.getDate().toString().padStart(2, "0");
-    const mm = (now.getMonth() + 1).toString().padStart(2, "0");
-    const yyyy = now.getFullYear();
-    return `${yyyy}-${mm}-${dd}`;
-  });
+  const [date] = useState(() => getTodayDateKey());
   const [isTodayDone, setIsTodayDone] = useState(false);
+  const { setIsOpen, setMessage, setVariant } = useToast();
+  const navigate = useNavigate();
 
   const todaysColorPrompt = useMemo(
     () =>
@@ -125,9 +78,16 @@ export default function GratitudeForm({
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRoot));
 
       setIsTodayDone(true);
+      // toast notification & navigate
+      setVariant("success");
+      setMessage("You paused, you reflected — and it's saved 💫");
+      setIsOpen(true);
+      navigate("/app/practice");
     } catch (error) {
       console.error("Error saving to localStorage:", error);
-      // toast notification
+      setVariant("error");
+      setMessage("Hmm… that didn't work. One more try?");
+      setIsOpen(true);
       // what do to with form inputs??
     }
   }

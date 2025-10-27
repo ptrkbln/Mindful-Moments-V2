@@ -1,11 +1,10 @@
 import type { Soundtrack } from "../data/soundtracks";
-import type { Topic } from "../data/topics";
 import type { Timer } from "../data/timer";
 import TimerDisplay from "./TimerDisplay";
 import { useState, useMemo } from "react";
 import { AnimatePresence } from "framer-motion";
 import AnimateFadeInOut from "./AnimateFadeInOut";
-import { gratitudeQuestions } from "../data/gratitudeQuestions";
+import { gratitudeQuestions, type Topic } from "../data/gratitudeQuestions";
 import GratitudeInstructions from "./GratitudeInstructions";
 import { getRandomArrayItem } from "../utils/array";
 import GratitudeForm from "./GratitudeForm";
