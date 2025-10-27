@@ -18,8 +18,8 @@ export function useToast() {
 }
 
 export default function ToastProvider({ children }: { children: ReactNode }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [message, setMessage] = useState("");
+  const [isOpen, setIsOpen] = useState(true);
+  const [message, setMessage] = useState("Testing testing testing");
   const [variant, setVariant] = useState<"success" | "error">("success");
 
   const value = useMemo(
