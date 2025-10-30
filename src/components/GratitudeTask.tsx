@@ -1,34 +1,27 @@
 import type { Soundtrack } from "../data/soundtracks";
 import type { Timer } from "../data/timer";
 import TimerDisplay from "./TimerDisplay";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import AnimateFadeInOut from "./AnimateFadeInOut";
-import { gratitudeQuestions, type Topic } from "../data/gratitudeQuestions";
+import { type DailyTask } from "../data/gratitudeQuestions";
 import GratitudeInstructions from "./GratitudeInstructions";
-import { getRandomArrayItem } from "../utils/array";
 import GratitudeForm from "./GratitudeForm";
 
 type GratitudeTaskProps = {
-  topic: Topic;
+  todaysTask: DailyTask | null;
   soundtrack: Soundtrack;
   timer: Timer;
 };
 
 export default function GratitudeTask({
-  topic,
+  todaysTask,
   soundtrack,
   timer,
 }: GratitudeTaskProps) {
   const [isTimerDone, setIsTimerDone] = useState(false);
 
-  const todaysTask = useMemo(() => {
-    const tasks = gratitudeQuestions.filter(
-      (task) => task.topic === topic && !task.completed
-    );
-    return getRandomArrayItem(tasks);
-  }, [topic]);
-
+  // fallback/guard if no tasks available
   if (!todaysTask) {
     return (
       <div
@@ -48,11 +41,7 @@ export default function GratitudeTask({
     );
   }
 
-  /* 
-  Display a single gratitude exercise for a chosen topic:
-  - first instructions with timer
-  - after timer runs out (or is skipped) display form (first textarea, then color input)
-  */
+  // display a single gratitude task: timer first, when complete (or skipped), show form
   return (
     <div
       className="w-[clamp(0px,100%,700px)] h-[clamp(440px,75dvh,min(650px,calc(100dvh-200px)))]

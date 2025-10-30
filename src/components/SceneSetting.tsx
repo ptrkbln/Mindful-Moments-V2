@@ -6,7 +6,6 @@ import SoundtrackPreview from "./SoundtrackPreview";
 import { TIMERS, type Timer } from "../data/timer";
 import { AnimatePresence } from "framer-motion";
 import AnimateFadeInOut from "./AnimateFadeInOut";
-import { getAvailableTopics } from "../utils/gratitudeUtils";
 import bgTopic from "../assets/images/bg_topic2.jpg";
 import bgSoundtrack from "../assets/images/bg_soundtrack.jpg";
 import bgTimer from "../assets/images/bg_timer.jpg";
@@ -18,20 +17,19 @@ type SceneSettingProps = {
   setSoundtrack: Dispatch<SetStateAction<Soundtrack | null>>;
   timer: Timer | null;
   setTimer: Dispatch<SetStateAction<Timer | null>>;
+  availableTopics: Topic[];
 };
 
+// step-by-step selector for topic-soundtrack-timer, stateless UI, parents own states
 export default function SceneSetting({
   topic,
   setTopic,
   soundtrack,
   setSoundtrack,
-  setTimer,
   timer,
+  setTimer,
+  availableTopics,
 }: SceneSettingProps): JSX.Element {
-  // get available topics from tasks that user has not yet completed
-  const availableTopics = getAvailableTopics();
-
-  // display 3 Carousels consequently as user options for todays task (topic, soundtrack, timer)
   return (
     <>
       <div className="relative min-h-24">

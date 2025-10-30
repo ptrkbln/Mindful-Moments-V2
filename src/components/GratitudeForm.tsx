@@ -39,7 +39,6 @@ export default function GratitudeForm({
   const [isInputDone, setIsInputDone] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [date] = useState(() => getTodayDateKey());
-  const [isTodayDone, setIsTodayDone] = useState(false);
   const { setIsOpen, setMessage, setVariant } = useToast();
   const navigate = useNavigate();
 
@@ -77,12 +76,12 @@ export default function GratitudeForm({
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRoot));
 
-      setIsTodayDone(true);
+      //setIsTodayDone(true);
       // toast notification & navigate
       setVariant("success");
       setMessage("You paused, you reflected — and it's saved 💫");
       setIsOpen(true);
-      navigate("/app/practice");
+      navigate("/app/");
     } catch (error) {
       console.error("Error saving to localStorage:", error);
       setVariant("error");
