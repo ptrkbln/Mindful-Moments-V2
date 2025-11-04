@@ -14,12 +14,13 @@ import {
   getAvailableTaskIdsFromRoot,
 } from "../utils/storage";
 import { getRandomArrayItem } from "../utils/array";
+import useTodayDone from "../hooks/useTodayDone";
 
 export default function PracticePage() {
   const [soundtrack, setSoundtrack] = useState<Soundtrack | null>(null);
   const [timer, setTimer] = useState<Timer | null>(null);
   const [topic, setTopic] = useState<Topic | null>(null);
-  const [todaysTask, setTodaysTask] = useState<DailyTask | null>(null);
+  // const [todaysTask, setTodaysTask] = useState<DailyTask | null>(null);
   const root = useMemo(() => getParsedRoot(), []); // localStorage snapshot (once at mount), not reactive
   // topics and taskIds derived from snapshot (stable until page remounts)
   const availableTopics = useMemo(
@@ -30,18 +31,16 @@ export default function PracticePage() {
     () => getAvailableTaskIdsFromRoot(root),
     [root]
   );
+  const isTodayDone = useTodayDone();
 
-  // pick a random task when all options are selected, store in state to avoid rerandomizing
-  useEffect(() => {
-    if (topic && soundtrack && timer) {
-      const randomTask = getRandomArrayItem(
-        gratitudeQuestions.filter(
-          (task) => task.topic === topic && availableTaskIds.includes(task.id)
-        )
-      );
-      setTodaysTask(randomTask);
-    }
-  }, [availableTaskIds, topic, soundtrack, timer]);
+  // pick a random task when all options are selected, memoized to stay stable across re-renders and prevents flicker
+  const todaysTask = useMemo(() => {
+    if (!topic || !soundtrack || !timer) return null;
+    const tasks = gratitudeQuestions.filter(
+      (task) => task.topic === topic && availableTaskIds.includes(task.id)
+    );
+    return getRandomArrayItem(tasks);
+  }, [topic, soundtrack, timer, availableTaskIds]);
 
   /* 
   1) check if there are still available (uncompleted) topics:
@@ -51,7 +50,36 @@ export default function PracticePage() {
   */
   return (
     <>
-      {topic && soundtrack && timer ? (
+      {isTodayDone ? (
+        <div
+          className="w-full max-w-sm
+  shadow-[0_8px_32px_rgba(167,139,250,0.15),inset_0_0_20px_rgba(255,255,255,0.4)]
+  bg-gradient-to-br from-white/40 via-white/25 to-white/15
+  ring-1 ring-white/30 rounded-[60px] backdrop-blur-md
+  px-8 py-16 flex flex-col items-center gap-6 text-center"
+        >
+          <div className="text-4xl mb-2">🌸</div>
+
+          <h2
+            className="text-2xl font-light
+    bg-gradient-to-r from-violet-600/90 via-purple-600/90 to-pink-600/90
+    bg-clip-text text-transparent"
+          >
+            You're all set for today!
+          </h2>
+
+          <p className="text-violet-500/80 font-light leading-relaxed">
+            Your gratitude has been saved.
+            <br />
+            Come back tomorrow to continue your journey.
+          </p>
+          <div className="flex items-center gap-2 mt-4">
+            <span className="w-8 h-[1px] bg-gradient-to-r from-transparent to-violet-300/50"></span>
+            <span className="text-violet-300/70">✦</span>
+            <span className="w-8 h-[1px] bg-gradient-to-l from-transparent to-violet-300/50"></span>
+          </div>
+        </div>
+      ) : topic && soundtrack && timer ? (
         <GratitudeTask
           todaysTask={todaysTask}
           soundtrack={soundtrack}
@@ -64,7 +92,7 @@ export default function PracticePage() {
             You completed our DEMO!
           </h2>
           <p className="text-neutral-600">
-            Great job finishing all the gratitude prompts. Come back later for
+            Great job finishing all the gratitude tasks. Come back later for
             more reflections.
           </p>
         </div>

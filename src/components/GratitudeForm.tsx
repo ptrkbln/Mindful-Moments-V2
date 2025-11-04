@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react";
 import { AnimatePresence } from "framer-motion";
 import AnimateFadeInOut from "./AnimateFadeInOut";
-import GratitudeInstructions from "./GratitudeInstructions";
 import { HexColorPicker } from "react-colorful";
 import { IoIosClose } from "react-icons/io";
 import { getRandomArrayItem } from "../utils/array";
@@ -103,47 +102,51 @@ export default function GratitudeForm({
         {!isInputDone ? (
           <AnimateFadeInOut key="text-step">
             <div className="flex flex-col h-full">
-              <div className="h-1/3 flex items-center justify-center">
-                <GratitudeInstructions taskObj={todaysTask} />
-              </div>
-              <div className="h-2/3 min-h-0 flex flex-col items-center justify-center gap-2">
+              <div className="relative flex-1 min-h-0 overflow-hidden">
                 <textarea
-                  className="w-full max-w-[600px] h-full max-h-[279px] text-neutral-dark font-['Playpen_Sans',cursive]
-                  font-extralight text-[clamp(16px,4vw,20px)] leading-[40px] resize-none
-                  pl-[66px] sm:pl-[100px] pr-4 pt-[7px] pb-[34px] rounded-[20px]
+                  className="absolute inset-0 w-full h-full text-neutral-dark font-['Playpen_Sans',cursive]
+                  font-extralight text-[clamp(16px,4vw,19px)] leading-[40px] resize-none
+                  pl-[66px] sm:pl-[96px] pr-3 sm:pr-7 pt-[7px]
                   shadow-[0_8px_24px_-4px_rgba(167,139,250,0.15),0_4px_12px_rgba(219,39,119,0.08),inset_0_2px_8px_rgba(255,255,255,0.6)]
-                  ring-1 ring-violet-200/30
-                  my-4 overflow-x-hidden overflow-y-auto bg-local
-                  transition-all duration-300 focus:outline-none
-                  focus:shadow-[0_12px_32px_-2px_rgba(167,139,250,0.25),0_6px_16px_rgba(219,39,119,0.12),inset_0_2px_12px_rgba(255,255,255,0.7)]
-                  placeholder:italic placeholder:text-[clamp(16px,4vw,20px)] placeholder:text-left sm:placeholder:text-center
+                  ring-1 ring-violet-200/30 
+                  overflow-x-hidden overflow-y-auto bg-local
+                  transition-all duration-300 focus:outline-none focus:shadow-[0_0_0_2px_rgba(167,139,250,.35)] 
+                  placeholder:italic placeholder:text-[clamp(15px,3.5vw,18px)] placeholder:text-slate-500/70 
                   [background-image:url('./assets/images/lines_text_area.png'),url('./assets/backgrounds/wrinkled_paper.webp')]
-                  [background-repeat:repeat-y,repeat] [background-position:-30px_0,center] sm:[background-position:0_0,center]"
+                  [background-repeat:repeat-y,repeat] [background-position:-30px_0,center] sm:[background-position:0_0,center] [background-size:auto_40px,850px_auto]"
                   style={{
-                    filter: "saturate(0.8) brightness(1.05)",
+                    filter: "brightness(1.05)",
                   }}
-                  placeholder="Write freely… even a few lines is enough."
+                  placeholder={todaysTask.task}
                   value={input}
                   required
+                  autoFocus
                   onChange={(e) => setInput(e.currentTarget.value)}
                 />
-                <button
-                  type="button"
-                  disabled={!input.trim()}
-                  className="h-10 px-6 py-2 text-sm rounded-full w-full sm:w-auto
-                  bg-gradient-to-r from-violet-200/70 via-purple-200/70 to-pink-200/70
-                  ring-1 ring-violet-300/40 border border-white/50 text-violet-700 font-medium
-                  shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3),0_2px_8px_rgba(219,39,119,0.15)]
-                  hover:shadow-[0_6px_24px_-2px_rgba(167,139,250,0.4),0_4px_12px_rgba(219,39,119,0.2)]
-                hover:from-violet-200/80 hover:via-purple-200/80 hover:to-pink-200/80
-                hover:text-violet-800 active:translate-y-[1px] 
-                 active:scale-[0.98] active:shadow-[0_2px_8px_-2px_rgba(167,139,250,0.3)]
-                 disabled:opacity-50 disabled:cursor-not-allowed
-                 transition-all duration-300 ease-out backdrop-blur-sm"
-                  onClick={() => setIsInputDone(true)}
-                >
-                  Continue →
-                </button>
+
+                <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white/70 via-white/40 to-transparent pointer-events-none" />
+              </div>
+              <div className="bg-white/75 px-6 pt-5 pb-6">
+                <p className="text-[9px] tracking-[0.25em] uppercase text-slate-500/60 mb-3 text-center">
+                  Gratitude for {todaysTask.topic}
+                </p>
+
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <div className="size-2 rounded-full bg-violet-400/70 shadow-sm"></div>
+                  <div className="size-1.5 rounded-full bg-slate-300/50"></div>
+                </div>
+
+                <div className="flex justify-center">
+                  <button
+                    type="button"
+                    disabled={!input.trim()}
+                    className="px-5 py-2 text-[12.5px] rounded-full w-[90%] sm:w-auto bg-gradient-to-r from-violet-200/55 via-purple-200/55 to-pink-200/55 ring-1 ring-violet-300/20 border border-white/30 text-violet-600 font-medium shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3),0_2px_8px_rgba(219,39,119,0.15)] hover:shadow-[0_6px_24px_-2px_rgba(167,139,250,0.4),0_4px_12px_rgba(219,39,119,0.2)] hover:from-violet-200/80 hover:via-purple-200/70 hover:to-pink-200/70 hover:text-violet-800 active:translate-y-[1px] active:scale-[0.98] active:shadow-[0_2px_8px_-2px_rgba(167,139,250,0.3)] transition-all duration-300 ease-out backdrop-blur-sm
+                 disabled:opacity-50 disabled:cursor-not-allowed"
+                    onClick={() => setIsInputDone(true)}
+                  >
+                    Continue →
+                  </button>
+                </div>
               </div>
             </div>
           </AnimateFadeInOut>
@@ -155,7 +158,7 @@ export default function GratitudeForm({
                 className="font-extralight text-[clamp(20px,4vw,24px)] tracking-wide text-center leading-snug
               text-neutral-800 supports-[background-clip:text]:text-transparent
                 bg-gradient-to-r from-violet-600/90 via-purple-600/90 to-pink-600/90 bg-clip-text 
-                [text-shadow:0_1px_0_rgba(255,255,255,.45)] max-w-[80%]"
+                [text-shadow:0_1px_0_rgba(255,255,255,.45)] max-w-[85%]"
               >
                 {todaysColorPrompt}
               </label>

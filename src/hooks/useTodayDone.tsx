@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { STORAGE_KEY } from "../utils/storage";
 import { getTodayDateKey } from "../utils/getTodayDateKey";
-import { parsedRoot } from "../utils/storage";
+import { getParsedRoot } from "../utils/storage";
+
+const checkIsTodayDone = () =>
+  !!getParsedRoot()?.entriesByDate?.[getTodayDateKey()];
 
 /* 
 - on call check if there's a gratitude item in localStorage with today's date as dateKey
@@ -12,10 +14,6 @@ import { parsedRoot } from "../utils/storage";
 
 export default function useTodayDone() {
   const [isTodayDone, setIsTodayDone] = useState(() => checkIsTodayDone());
-  const checkIsTodayDone = () =>
-    !!parsedRoot(localStorage.getItem(STORAGE_KEY))?.entriesByDate?.[
-      getTodayDateKey()
-    ];
 
   useEffect(() => {
     function onStorageChange() {
