@@ -94,9 +94,9 @@ export default function GratitudeTask({
       shadow-[0_8px_32px_rgba(167,139,250,0.15),0_12px_48px_rgba(219,39,119,0.08),inset_0_0_20px_rgba(255,255,255,0.4)]
       bg-gradient-to-br from-white/40 via-white/25 to-white/15 overflow-hidden
       ring-1 ring-white/30 rounded-[60px] sm:rounded-[80px] backdrop-blur-md
-      flex flex-col transition-[box-shadow] duration-300"
+      flex flex-col mx-auto"
     >
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" initial={false}>
         {!isTimerDone && soundtrack && timer ? (
           <AnimateFadeInOut key="intro">
             <div className="flex flex-col h-full">
@@ -108,6 +108,7 @@ export default function GratitudeTask({
                   loop
                   muted
                   playsInline
+                  preload="auto"
                   className="absolute inset-0 w-full h-full object-cover opacity-75"
                   style={{
                     filter:
