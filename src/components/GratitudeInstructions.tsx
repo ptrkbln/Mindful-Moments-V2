@@ -38,7 +38,7 @@ export default function GratitudeInstructions({
       {/* Question - more compact */}
       <AnimatePresence mode="wait">
         <AnimateFadeInOut key={i}>
-          <p className="text-slate-700/80 text-[16px] leading-relaxed tracking-[0.2px] font-normal">
+          <p className="text-slate-700/80 text-[16px] min-h-[52px] sm:min-h-0 flex items-center leading-relaxed tracking-[0.2px] font-normal">
             {taskQuestions[i]}
           </p>
         </AnimateFadeInOut>

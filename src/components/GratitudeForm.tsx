@@ -114,7 +114,7 @@ export default function GratitudeForm({
                   [background-image:url('./assets/images/lines_text_area.png'),url('./assets/backgrounds/wrinkled_paper.webp')]
                   [background-repeat:repeat-y,repeat] [background-position:-30px_0,center] sm:[background-position:0_0,center] [background-size:auto_40px,850px_auto]"
                   style={{
-                    filter: "brightness(1.05)",
+                    filter: "brightness(1.07)",
                   }}
                   placeholder={todaysTask.task}
                   value={input}
@@ -125,7 +125,7 @@ export default function GratitudeForm({
 
                 <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white/70 via-white/40 to-transparent pointer-events-none" />
               </div>
-              <div className="bg-white/75 px-6 pt-5 pb-6">
+              <div className="bg-white/50 px-6 pt-5 pb-6">
                 <p className="text-[9px] tracking-[0.25em] uppercase text-slate-500/60 mb-3 text-center">
                   Gratitude for {todaysTask.topic}
                 </p>
@@ -139,7 +139,7 @@ export default function GratitudeForm({
                   <button
                     type="button"
                     disabled={!input.trim()}
-                    className="px-5 py-2 text-[12.5px] rounded-full w-[90%] sm:w-auto bg-gradient-to-r from-violet-200/55 via-purple-200/55 to-pink-200/55 ring-1 ring-violet-300/20 border border-white/30 text-violet-600 font-medium shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3),0_2px_8px_rgba(219,39,119,0.15)] hover:shadow-[0_6px_24px_-2px_rgba(167,139,250,0.4),0_4px_12px_rgba(219,39,119,0.2)] hover:from-violet-200/80 hover:via-purple-200/70 hover:to-pink-200/70 hover:text-violet-800 active:translate-y-[1px] active:scale-[0.98] active:shadow-[0_2px_8px_-2px_rgba(167,139,250,0.3)] transition-all duration-300 ease-out backdrop-blur-sm
+                    className="px-5 py-2 text-[12.5px] rounded-full w-[90%] sm:w-auto bg-gradient-to-r from-violet-200/55 via-purple-200/55 to-pink-200/55 ring-1 ring-violet-300/20 border border-white/30 text-violet-600 font-medium shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3),0_2px_8px_rgba(219,39,119,0.15)] hover:shadow-[0_6px_24px_-2px_rgba(167,139,250,0.4),0_4px_12px_rgba(219,39,119,0.2)] hover:from-violet-200/80 hover:via-purple-200/70 hover:to-pink-200/70 hover:text-violet-800 active:translate-y-[1px] active:scale-[0.98] active:shadow-[0_2px_8px_-2px_rgba(167,139,250,0.3)] transition-all duration-300 ease-out
                  disabled:opacity-50 disabled:cursor-not-allowed"
                     onClick={() => setIsInputDone(true)}
                   >
@@ -155,7 +155,7 @@ export default function GratitudeForm({
               <div
                 className="relative flex items-center justify-center flex-1 min-h-0"
                 style={{
-                  background: `linear-gradient(135deg, ${color}20, ${color}10, transparent)`,
+                  background: `linear-gradient(180deg, ${color}30, ${color}15, transparent)`,
                 }}
               >
                 <div className="p-[3px] rounded-full bg-gradient-to-r from-white/40 via-white/30 to-white/40">
@@ -211,23 +211,21 @@ export default function GratitudeForm({
                 {/* required for form due to HexColorPicker not submitting a value */}
                 <input type="hidden" name="moodColor" value={color} />
 
-                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white/70 to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white/75 to-transparent pointer-events-none" />
               </div>
               {/* Bottom control panel */}
-              <div className="bg-white/75 border-t border-slate-200/30 px-6 pt-4 pb-6">
-                <span className="w-8 h-[1px] bg-gradient-to-r from-transparent to-violet-300/80"></span>
-                <p className="text-slate-600/85 text-[14px] leading-relaxed font-normal text-center mb-3">
+              <div className="bg-white/50 px-6 pt-4 pb-6">
+                <p className="text-slate-700/80 text-[15px] leading-relaxed font-normal text-center mb-3">
                   {todaysColorPrompt}
                 </p>
                 <div className="flex items-center justify-center gap-2 mb-4">
                   <div className="size-1.5 rounded-full bg-slate-300/50"></div>
                   <div className="size-2 rounded-full bg-violet-400/70 shadow-sm"></div>
                 </div>
-
                 <div className="flex justify-center">
                   <button
                     type="submit"
-                    className="px-5 py-2 text-[12.5px] rounded-full w-[90%] sm:w-auto bg-gradient-to-r from-violet-200/55 via-purple-200/55 to-pink-200/55 ring-1 ring-violet-300/20 border border-white/30 text-violet-600 font-medium shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3),0_2px_8px_rgba(219,39,119,0.15)] hover:shadow-[0_6px_24px_-2px_rgba(167,139,250,0.4),0_4px_12px_rgba(219,39,119,0.2)] hover:from-violet-200/80 hover:via-purple-200/70 hover:to-pink-200/70 hover:text-violet-800 active:translate-y-[1px] active:scale-[0.98] active:shadow-[0_2px_8px_-2px_rgba(167,139,250,0.3)] transition-all duration-300 ease-out backdrop-blur-sm"
+                    className="px-5 py-2 text-[12.5px] rounded-full w-[90%] sm:w-auto bg-gradient-to-r from-violet-200/55 via-purple-200/55 to-pink-200/55 ring-1 ring-violet-300/20 border border-white/30 text-violet-600 font-medium shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3),0_2px_8px_rgba(219,39,119,0.15)] hover:shadow-[0_6px_24px_-2px_rgba(167,139,250,0.4),0_4px_12px_rgba(219,39,119,0.2)] hover:from-violet-200/80 hover:via-purple-200/70 hover:to-pink-200/70 hover:text-violet-800 active:translate-y-[1px] active:scale-[0.98] active:shadow-[0_2px_8px_-2px_rgba(167,139,250,0.3)] transition-all duration-300 ease-out"
                   >
                     Done for Today
                   </button>

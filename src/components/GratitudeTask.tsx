@@ -92,8 +92,8 @@ export default function GratitudeTask({
     <div
       className="w-[clamp(0px,100%,600px)] h-[clamp(400px,70dvh,450px)] relative
       shadow-[0_8px_32px_rgba(167,139,250,0.15),0_12px_48px_rgba(219,39,119,0.08),inset_0_0_20px_rgba(255,255,255,0.4)]
-      bg-gradient-to-br from-white/40 via-white/25 to-white/15 overflow-hidden
-      ring-1 ring-white/30 rounded-[60px] sm:rounded-[80px] backdrop-blur-md
+      bg-gradient-to-b from-white/45 via-white/95 to-white/45 overflow-hidden
+      ring-1 ring-white/30 rounded-[60px] sm:rounded-[80px]
       flex flex-col mx-auto"
     >
       <AnimatePresence mode="wait" initial={false}>
@@ -115,11 +115,11 @@ export default function GratitudeTask({
                       "hue-rotate(210deg) saturate(1.05) brightness(1.05) contrast(0.94)",
                   }}
                 />
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white/40 to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white/75 to-transparent pointer-events-none" />
               </div>
 
               {/* Bottom section: All controls and info */}
-              <div className="bg-white/50">
+              <div className="bg-white/33">
                 <GratitudeInstructions taskObj={todaysTask} />
 
                 {/* Timer progress */}
@@ -144,14 +144,14 @@ export default function GratitudeTask({
                   {!isTimerRunning ? (
                     <button
                       onClick={startTimer}
-                      className="px-5 py-2 text-[12.5px] rounded-full w-[90%] sm:w-auto bg-gradient-to-r from-violet-200/55 via-purple-200/55 to-pink-200/55 ring-1 ring-violet-300/20 border border-white/30 text-violet-600 font-medium shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3),0_2px_8px_rgba(219,39,119,0.15)] hover:shadow-[0_6px_24px_-2px_rgba(167,139,250,0.4),0_4px_12px_rgba(219,39,119,0.2)] hover:from-violet-200/80 hover:via-purple-200/70 hover:to-pink-200/70 hover:text-violet-800 active:translate-y-[1px] active:scale-[0.98] active:shadow-[0_2px_8px_-2px_rgba(167,139,250,0.3)] transition-all duration-300 ease-out backdrop-blur-sm"
+                      className="px-5 py-2 text-[12.5px] rounded-full w-[90%] sm:w-auto bg-gradient-to-r from-violet-200/55 via-purple-200/55 to-pink-200/55 ring-1 ring-violet-300/20 border border-white/30 text-violet-600 font-medium shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3),0_2px_8px_rgba(219,39,119,0.15)] hover:shadow-[0_6px_24px_-2px_rgba(167,139,250,0.4),0_4px_12px_rgba(219,39,119,0.2)] hover:from-violet-200/80 hover:via-purple-200/70 hover:to-pink-200/70 hover:text-violet-800 active:translate-y-[1px] active:scale-[0.98] active:shadow-[0_2px_8px_-2px_rgba(167,139,250,0.3)] transition-all duration-300 ease-out"
                     >
                       Let's start
                     </button>
                   ) : (
                     <button
                       onClick={stopTimer}
-                      className="px-5 py-2 text-[12.5px] rounded-full w-[90%] sm:w-auto bg-white/40 ring-1 ring-violet-200/30 border border-white/40 text-violet-600/80 font-medium shadow-[0_2px_12px_-2px_rgba(167,139,250,0.2)] hover:bg-white/60 hover:shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3)] hover:text-violet-700 active:translate-y-[1px] transition-all duration-300 ease-out backdrop-blur-sm"
+                      className="px-5 py-2 text-[12.5px] rounded-full w-[90%] sm:w-auto ring-1 bg-white/33 ring-violet-200/30 border border-white/40 text-violet-600/80 font-medium shadow-[0_2px_12px_-2px_rgba(167,139,250,0.2)] hover:bg-white/80 hover:shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3)] hover:text-violet-700 active:translate-y-[1px] transition-all duration-300 ease-out backdrop-blur-sm"
                     >
                       Skip reflection
                     </button>
