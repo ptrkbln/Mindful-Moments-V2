@@ -143,7 +143,7 @@ export default function GratitudeForm({
                  disabled:opacity-50 disabled:cursor-not-allowed"
                     onClick={() => setIsInputDone(true)}
                   >
-                    Continue →
+                    Move On →
                   </button>
                 </div>
               </div>
@@ -158,12 +158,12 @@ export default function GratitudeForm({
                   background: `linear-gradient(180deg, ${color}30, ${color}15, transparent)`,
                 }}
               >
-                <div className="p-[3px] rounded-full bg-gradient-to-r from-white/40 via-white/30 to-white/40">
+                <div className="p-[3px] rounded-full bg-white/40">
                   <button
                     type="button"
                     onClick={() => setShowColorPicker(!showColorPicker)}
                     className="size-[clamp(130px,20vmin,160px)] rounded-full cursor-pointer appearance-none 
-                    shadow-[0_12px_40px_rgba(0,0,0,.15)] active:translate-y-[1px] transition-transform hover:scale-103"
+                    shadow-[0_12px_40px_rgba(0,0,0,.15)] active:translate-y-[1px] transition-transform hover:scale-103 duration-300"
                     style={{ backgroundColor: color }}
                   />
                   <span
@@ -227,7 +227,7 @@ export default function GratitudeForm({
                     type="submit"
                     className="px-5 py-2 text-[12.5px] rounded-full w-[90%] sm:w-auto bg-gradient-to-r from-violet-200/55 via-purple-200/55 to-pink-200/55 ring-1 ring-violet-300/20 border border-white/30 text-violet-600 font-medium shadow-[0_4px_16px_-2px_rgba(167,139,250,0.3),0_2px_8px_rgba(219,39,119,0.15)] hover:shadow-[0_6px_24px_-2px_rgba(167,139,250,0.4),0_4px_12px_rgba(219,39,119,0.2)] hover:from-violet-200/80 hover:via-purple-200/70 hover:to-pink-200/70 hover:text-violet-800 active:translate-y-[1px] active:scale-[0.98] active:shadow-[0_2px_8px_-2px_rgba(167,139,250,0.3)] transition-all duration-300 ease-out"
                   >
-                    Done for Today
+                    Save My Gratitude
                   </button>
                 </div>
               </div>
