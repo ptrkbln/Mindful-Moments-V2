@@ -41,7 +41,7 @@ export default function GratitudeTask({
 
   return (
     <div
-      className="w-[clamp(0px,100%,600px)] h-[clamp(400px,70dvh,450px)] relative
+      className="w-[clamp(0px,100%,575px)] h-[clamp(400px,70dvh,450px)] relative
       shadow-[0_8px_32px_rgba(167,139,250,0.15),0_12px_48px_rgba(219,39,119,0.08),inset_0_0_20px_rgba(255,255,255,0.4)]
       bg-gradient-to-b from-white/45 via-white/95 to-white/45 overflow-hidden
       ring-1 ring-white/30 rounded-[60px] sm:rounded-[80px]

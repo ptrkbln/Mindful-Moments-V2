@@ -33,8 +33,8 @@ export default function Carousel<T extends string | number>({
   return (
     /* card (container) */
     <div
-      className="group relative mx-auto aspect-square w-[clamp(300px,84dvw,450px)]
-      overflow-hidden rounded-[clamp(60px,8vw,80px)]
+      className="group relative mx-auto aspect-square w-[clamp(300px,55dvw,420px)]
+      overflow-hidden rounded-[80px]
       shadow-[0_40px_100px_-40px_rgba(76,119,133,0.15),0_20px_60px_-24px_rgba(0,0,0,0.06),inset_0_40px_80px_-60px_rgba(255,255,255,0.7),inset_0_-24px_72px_-56px_rgba(0,0,0,0.04)]
       [filter:saturate(0.9)_contrast(0.96)_brightness(1.04)_hue-rotate(-4deg)]"
       style={{
@@ -44,20 +44,19 @@ export default function Carousel<T extends string | number>({
         backgroundPosition: "center center, center calc(50% - 70px)",
       }}
     >
-      {/* slide-up panel, revealed on hover */}
       <div
         className="absolute inset-x-0 bottom-0
-        h-[185px] sm:h-[50%]
+        h-[58%] sm:h-[48%]
         backdrop-blur-md 
         [background:linear-gradient(180deg,rgba(240,235,255,0.55)_0%,rgba(250,248,255,0.45)_50%,rgba(226,239,243,0.35)_100%)]
         translate-y-[calc(100%-70px)]
         transition-transform duration-400 
-        group-hover:translate-y-0 sm:px-5"
+        group-hover:translate-y-0 px-1.5 sm:px-5"
       >
         {/* header: eg. Today I'll focus on */}
-        <div className="flex items-center justify-center pt-5 pb-1 sm:pt-4 sm:pb-4">
+        <div className="flex items-center justify-center pt-4 pb-4">
           <h2
-            className="text-[clamp(20px,4vw,24px)] font-extralight text-neutral-dark 
+            className="text-[clamp(19px,3.2vw,21px)] font-extralight text-neutral-dark 
             tracking-wide font-['Playpen_Sans',cursive]"
           >
             {header}
@@ -65,25 +64,25 @@ export default function Carousel<T extends string | number>({
         </div>
 
         {/* options: current value + preview if soundtrack + counter */}
-        <div className="px-8 py-2 space-y-4 text-neutral-dark">
+        <div className="px-8 text-neutral-dark">
           <div className="flex items-center gap-2 min-h-10 px-1">
             {SoundtrackPreview && (
               <SoundtrackPreview trackLabel={currentValue} />
             )}
-            <div className="min-w-0 flex-1 text-[clamp(16px,3.5vw,19px)] font-bold pl-1 truncate">
+            <div className="min-w-0 flex-1 text-[clamp(15px,3vw,17px)] font-bold pl-1 truncate">
               {currentValue}
             </div>
 
-            <span className="w-12 text-right text-xs sm:text-sm text-primary/90 tabular-nums">
+            <span className="text-right text-[12px] text-primary/90 tabular-nums">
               {i + 1}/{options.length}
             </span>
           </div>
 
           {/* controls: prev/next arrow-buttons + confirm */}
-          <div className="sm:pt-4 flex gap-2">
+          <div className="pt-3 sm:pt-4 md:pt-7 flex gap-3">
             <button
               onClick={prev}
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-violet-100/80
+              className="size-9 flex items-center justify-center rounded-full bg-violet-100/80
               ring-1 ring-violet-200/70 border border-violet-200/40 text-neutral-dark
               shadow-[0_2px_10px_-2px_rgba(167,139,250,.15)] hover:bg-violet-200/60 hover:text-violet-600 
               active:translate-y-[1px] transition-all duration-200"
@@ -93,7 +92,7 @@ export default function Carousel<T extends string | number>({
             </button>
             <button
               onClick={next}
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-violet-100/80
+              className="size-9 flex items-center justify-center rounded-full bg-violet-100/80
               ring-1 ring-violet-200/70 border border-violet-200/40 text-neutral-dark
               shadow-[0_2px_10px_-2px_rgba(167,139,250,.15)]
             hover:bg-violet-200/60 hover:text-violet-600 active:translate-y-[1px] 
@@ -104,7 +103,7 @@ export default function Carousel<T extends string | number>({
             </button>
             <button
               onClick={() => setterFunction(currentValue)}
-              className="ml-auto h-10 px-4 rounded-full text-white text-sm
+              className="ml-auto px-4 py-2.5 rounded-full text-white text-[13px]
               shadow-[0_10px_24px_-10px_rgba(167,139,250,.4)] ring-1 ring-violet-200/20
               active:translate-y-[1px] transition-all duration-300
               [background:linear-gradient(135deg,#a78bfa,#c4b5fd)]
