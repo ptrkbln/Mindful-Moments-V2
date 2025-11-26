@@ -54,9 +54,9 @@ export default function Carousel<T extends string | number>({
         group-hover:translate-y-0 px-1.5 sm:px-5"
       >
         {/* header: eg. Today I'll focus on */}
-        <div className="flex items-center justify-center pt-4 pb-4">
+        <div className="flex items-center justify-center pt-4.5 pb-4">
           <h2
-            className="text-[clamp(19px,3.2vw,21px)] font-extralight text-neutral-dark 
+            className="text-[clamp(18px,3.2vw,21px)] font-extralight text-neutral-dark 
             tracking-wide font-['Playpen_Sans',cursive]"
           >
             {header}

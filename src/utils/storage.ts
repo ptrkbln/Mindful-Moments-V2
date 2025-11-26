@@ -3,6 +3,7 @@ import {
   type DailyTask,
   type Topic,
 } from "../data/gratitudeQuestions";
+import { getTodayDateKey } from "./getTodayDateKey";
 
 // localStorage key for all gratitude entries
 export const STORAGE_KEY = "mindful-moments" as const;
@@ -115,4 +116,82 @@ function getAvailableTopicsFromIds(
 // collect available topics directly from root object
 export function getAvailableTopicsFromRoot(root: Root | null): Topic[] {
   return getAvailableTopicsFromIds(getAvailableTaskIdsFromRoot(root));
+}
+
+// return true if today's practice is completed
+export function isTodayPracticeCompleted(root: Root | null) {
+  return !root ? false : !!root.entriesByDate?.[getTodayDateKey()];
+}
+
+// return days of completed practice
+export function getCompletedDaysTotal(root: Root | null) {
+  return !root ? 0 : Object.keys(root.entriesByDate).length;
+}
+
+const MS_PER_DAY = 1000 * 60 * 60 * 24;
+function diffInDays(a: Date, b: Date) {
+  return Math.round((b.getTime() - a.getTime()) / MS_PER_DAY);
+}
+// return max consecutive days of completed practice
+export function getMaxStreak(root: Root | null) {
+  if (!root) return 0;
+  const dateKeys = Object.keys(root.entriesByDate); // YYYY-MM-DD format
+  if (dateKeys.length === 0) return 0;
+
+  const sortedKeys = dateKeys.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+
+  let maxStreak = 1;
+  let currentStreak = 1;
+
+  for (let i = 1; i < sortedKeys.length; i++) {
+    const prevDate = new Date(sortedKeys[i - 1]);
+    const currDate = new Date(sortedKeys[i]);
+
+    const daysBetween = diffInDays(prevDate, currDate);
+
+    if (daysBetween === 1) {
+      currentStreak++;
+    } else {
+      if (currentStreak > maxStreak) maxStreak = currentStreak;
+      currentStreak = 1;
+    }
+  }
+  if (currentStreak > maxStreak) maxStreak = currentStreak;
+  return maxStreak;
+}
+
+export function getCurrentStreak(root: Root | null) {
+  if (!root) return 0;
+
+  const dateKeys = Object.keys(root.entriesByDate); // YYYY-MM-DD format
+  if (dateKeys.length === 0) return 0;
+
+  const sortedKeysDescending = dateKeys.sort((a, b) =>
+    a > b ? -1 : a < b ? 1 : 0
+  );
+
+  const today = new Date(getTodayDateKey());
+  const yesterday = new Date(today.getTime() - MS_PER_DAY);
+
+  const isTodayDone = !!root.entriesByDate[getTodayDateKey()];
+  const isYesterdayDone =
+    !!root.entriesByDate[yesterday.toString().slice(0, 10)];
+
+  // streak broken
+  if (!isTodayDone && !isYesterdayDone) return 0;
+
+  // start counting from today or yesterday if today not yet done
+  let streak = isTodayDone ? 1 : 0;
+  let lastCompletedDate = isTodayDone ? today : yesterday;
+
+  for (let i = 0; i < sortedKeysDescending.length; i++) {
+    const current = new Date(sortedKeysDescending[i]);
+    const difference = diffInDays(current, lastCompletedDate);
+
+    if (difference === 1) {
+      streak++;
+      lastCompletedDate = current;
+    } else if (difference > 1) break;
+  }
+  return streak;
 }

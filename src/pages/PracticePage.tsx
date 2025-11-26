@@ -8,9 +8,9 @@ import {
   getParsedRoot,
   getAvailableTopicsFromRoot,
   getAvailableTaskIdsFromRoot,
+  isTodayPracticeCompleted,
 } from "../utils/storage";
 import { getRandomArrayItem } from "../utils/array";
-import useTodayDone from "../hooks/useTodayDone";
 import { AnimatePresence } from "framer-motion";
 import AnimateFadeInOut from "../components/AnimateFadeInOut";
 
@@ -29,7 +29,8 @@ export default function PracticePage() {
     () => getAvailableTaskIdsFromRoot(root),
     [root]
   );
-  const isTodayDone = useTodayDone();
+
+  const isTodayDone = isTodayPracticeCompleted(root);
 
   // pick a random task when all options are selected, memoized to stay stable across re-renders and prevents flicker
   const todaysTask = useMemo(() => {
@@ -68,8 +69,6 @@ export default function PracticePage() {
             </h2>
 
             <p className="text-violet-500/80 font-light leading-relaxed">
-              Your gratitude has been saved.
-              <br />
               Come back tomorrow to continue your journey.
             </p>
             <div className="flex items-center gap-2 mt-4">

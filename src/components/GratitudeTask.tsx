@@ -24,7 +24,7 @@ export default function GratitudeTask({
     return (
       <div
         className="flex flex-col items-center justify-center gap-6 text-center p-10
-      bg-white/40 backdrop-blur-sm rounded-3xl 
+      bg-white/40 rounded-3xl 
       shadow-[0_8px_32px_-8px_rgba(0,0,0,0.2)]
       ring-1 ring-white/40 max-w-md"
       >

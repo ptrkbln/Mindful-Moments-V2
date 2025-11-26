@@ -67,7 +67,7 @@ export default function TimerDisplay({
   const sec = String(timeLeft % 60).padStart(2, "0");
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col flex-grow h-full">
       {/* Top section: Video takes most space */}
       <div className="flex-1 min-h-0 relative overflow-hidden">
         <video

@@ -7,11 +7,11 @@ export default function AnimateFadeInOut({
 }) {
   return (
     <motion.div
-      className="w-full h-full"
-      initial={{ opacity: 0, scale: 0.97 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.97 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="w-full h-full flex flex-grow justify-center items-center"
+      initial={{ opacity: 0, filter: "brightness(1.15)" }}
+      animate={{ opacity: 1, filter: "brightness(1)" }}
+      exit={{ opacity: 0, filter: "brightness(1.15)" }}
+      transition={{ duration: 0.8, ease: "easeIn" }}
     >
       {children}
     </motion.div>

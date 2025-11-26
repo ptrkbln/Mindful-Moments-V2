@@ -5,6 +5,7 @@ import LandingPage from "./pages/LandingPage";
 import Layout from "./layout/Layout";
 import JournalPage from "./pages/JournalPage";
 import PracticePage from "./pages/PracticePage";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/app" element={<Layout />}>
+            <Route index element={<HomePage />} />
             <Route path="practice" element={<PracticePage />} />
             <Route path="journal" element={<JournalPage />} />
           </Route>

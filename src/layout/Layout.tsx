@@ -28,7 +28,7 @@ export default function Layout() {
         }}
       >
         <Header />
-        <main className="flex-1 min-h-full flex flex-col items-center justify-center">
+        <main className="flex flex-grow justify-center items-center">
           <Outlet />
         </main>
         <Footer />

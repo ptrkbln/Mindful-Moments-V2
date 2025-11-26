@@ -100,7 +100,7 @@ export default function GratitudeForm({
       <AnimatePresence mode="wait">
         {!isInputDone ? (
           <AnimateFadeInOut key="text-step">
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col h-full flex-grow">
               <div className="relative flex-1 min-h-0 overflow-hidden">
                 <textarea
                   className="absolute inset-0 w-full h-full text-neutral-dark font-['Playpen_Sans',cursive]
@@ -151,7 +151,7 @@ export default function GratitudeForm({
           </AnimateFadeInOut>
         ) : (
           <AnimateFadeInOut key="color-step">
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col h-full flex-grow">
               <div
                 className="relative flex items-center justify-center flex-1 min-h-0"
                 style={{
