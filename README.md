@@ -2,7 +2,7 @@
 
 A gratitude journal frontend prototype built with React and TypeScript.
 
-[🌐 **Live Demo:**](https://mindful-moments-v2-np1c.vercel.app/)
+[🌐 **Live Demo**](https://mindful-moments-v2-np1c.vercel.app/)
 
 ## Status
 
