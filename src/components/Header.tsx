@@ -1,5 +1,4 @@
 import { Link, NavLink } from "react-router-dom";
-import { FaHouseUser, FaPencil, FaUser, FaBookOpen } from "react-icons/fa6";
 import {
   PiHouseSimpleLight,
   PiPencilSimpleLineLight,
@@ -75,16 +74,24 @@ export default function Header() {
   return (
     <header>
       {/* desktop navigation */}
-      <nav className="hidden sm:flex justify-between items-end w-full max-w-screen-2xl mx-auto pl-10">
+      <nav className="hidden sm:flex justify-between items-center w-full max-w-screen-2xl mx-auto px-15">
         <Link to="/app">
-          <h1 className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)]">
-            <span className="text-3xl sm:text-4xl  font-bold text-primary">
-              Mindful
+          <div className="flex items-end gap-2.5 h-17">
+            <span className="text-9xl text-violet-400 font-light font-['caveat']">
+              m
             </span>
-            <span className="font-semibold text-2xl sm:text-3xl text-primary-light">
-              Moments
-            </span>
-          </h1>
+
+            <div className="flex flex-col">
+              <span className="text-lg font-light text-violet-500 tracking-[1.75px] font-['comfortaa'] -ml-0.75">
+                indful
+              </span>
+              <span className="text-lg font-light text-violet-700 tracking-[2.25px] -mt-3.75 pb-5 font-['comfortaa'] ml-1">
+                oments
+              </span>
+            </div>
+
+            <span className="sr-only">Mindful Moments</span>
+          </div>
         </Link>
         <ul className="flex gap-9 mr-8">{renderNavElements(navElements)}</ul>
       </nav>

@@ -6,6 +6,7 @@ import Layout from "./layout/Layout";
 import JournalPage from "./pages/JournalPage";
 import PracticePage from "./pages/PracticePage";
 import HomePage from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="practice" element={<PracticePage />} />
             <Route path="journal" element={<JournalPage />} />
+            <Route path="profile" element={<ProfilePage />} />
           </Route>
         </Routes>
       </BrowserRouter>

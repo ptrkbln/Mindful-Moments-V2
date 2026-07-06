@@ -23,11 +23,11 @@ export default function PracticePage() {
   // topics and taskIds derived from snapshot (stable until page remounts)
   const availableTopics = useMemo(
     () => getAvailableTopicsFromRoot(root),
-    [root]
+    [root],
   );
   const availableTaskIds = useMemo(
     () => getAvailableTaskIdsFromRoot(root),
-    [root]
+    [root],
   );
 
   const isTodayDone = isTodayPracticeCompleted(root);
@@ -36,7 +36,7 @@ export default function PracticePage() {
   const todaysTask = useMemo(() => {
     if (!topic || !soundtrack || !timer) return null;
     const tasks = gratitudeQuestions.filter(
-      (task) => task.topic === topic && availableTaskIds.includes(task.id)
+      (task) => task.topic === topic && availableTaskIds.includes(task.id),
     );
     return getRandomArrayItem(tasks);
   }, [topic, soundtrack, timer, availableTaskIds]);
@@ -53,17 +53,17 @@ export default function PracticePage() {
         <AnimateFadeInOut key="today-done">
           <div
             className="w-full max-w-sm
-  shadow-[0_8px_32px_rgba(167,139,250,0.15),inset_0_0_20px_rgba(255,255,255,0.4)]
-  bg-gradient-to-br from-white/40 via-white/25 to-white/15
-  ring-1 ring-white/30 rounded-[60px] backdrop-blur-md
-  px-8 py-16 flex flex-col items-center gap-6 text-center"
+            shadow-[0_8px_32px_rgba(167,139,250,0.15),inset_0_0_20px_rgba(255,255,255,0.4)]
+            bg-gradient-to-br from-white/40 via-white/25 to-white/15
+            ring-1 ring-white/30 rounded-[60px] backdrop-blur-md
+            px-8 py-16 flex flex-col items-center gap-6 text-center"
           >
             <div className="text-4xl mb-2">🌸</div>
 
             <h2
               className="text-2xl font-light
-    bg-gradient-to-r from-violet-600/90 via-purple-600/90 to-pink-600/90
-    bg-clip-text text-transparent"
+              bg-gradient-to-r from-violet-600/90 via-purple-600/90 to-pink-600/90
+              bg-clip-text text-transparent"
             >
               You're all set for today!
             </h2>

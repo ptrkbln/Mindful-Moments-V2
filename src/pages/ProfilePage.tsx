@@ -1,7 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import AnimateFadeInOut from "../components/AnimateFadeInOut";
 
-export default function JournalPage() {
+export default function ProfilePage() {
   return (
     <AnimatePresence mode="wait">
       <AnimateFadeInOut key="scene-setting">
